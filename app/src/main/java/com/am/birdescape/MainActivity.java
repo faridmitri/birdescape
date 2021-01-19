@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         bird = findViewById(R.id.bird);
         enemy1 = findViewById(R.id.enemy1);
         enemy2 = findViewById(R.id.enemy2);
@@ -54,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
         coin.setAnimation(animation);
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        volume.setImageResource(R.drawable.volume_up);
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
+        volume.setImageResource(R.drawable.volume_up);
         mediaPlayer.start();
 
 
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 volume.setImageResource(R.drawable.volume_up);
                 Intent intent = new Intent(MainActivity.this,GameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -143,3 +147,4 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 }
+

@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesClient;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -168,6 +170,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 100);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_1));
+            Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this)).setViewForPopups(this.findViewById(android.R.id.content));
 
         }
 
@@ -180,6 +183,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 100);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_2));
+
 
         }
 

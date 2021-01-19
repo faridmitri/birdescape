@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        play = findViewById(R.id.play);
+      /*  play = findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
     }
 
     @Override
@@ -163,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "signInSilently(): failure", task.getException());
                            // onDisconnected();
+                            startSignInIntent();
                         }
                     }
                 });
@@ -197,5 +198,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }
