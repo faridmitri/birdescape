@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "22349308163",
+    "project_id": "birdescape-8db0f",
+    "storage_bucket": "birdescape-8db0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22349308163:android:f4ad0c5c869ccf4f4f8936",
+        "android_client_info": {
+          "package_name": "com.am.birdescape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22349308163-u5jquct02mij34kvth6f7h077u82l6dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.am.birdescape",
+            "certificate_hash": "4bb85b41e5c7f403e741c267b672973393185a2d"
+          }
+        },
+        {
+          "client_id": "22349308163-h3gqm2f9i7ms0ah95tibjhudd2dnsrc7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5HhxYI2ElpROW_GqaW-o-h537JSCILso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22349308163-h3gqm2f9i7ms0ah95tibjhudd2dnsrc7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

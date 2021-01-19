@@ -3,4 +3,6 @@
     <string name="info">The innocent bird needs to reach 500 points
         in order to escape from enemies and reach its nest.
         Can you help the bird in this challenging task?</string>
+
+    <string name="signin_other_error">Error, check your internet connection, or try later</string>
 </resources>
