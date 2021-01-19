@@ -12,23 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 public class ResultActivity extends AppCompatActivity {
 
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
-    private Button buttonAgain;
+    private Button buttonAgain,leader;
     private int score;
 
     private SharedPreferences sharedPreferences;
+    private static final int RC_LEADERBOARD_UI = 9004;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+
         textViewHighestScore = findViewById(R.id.textViewHighestScore);
         textViewMyScore = findViewById(R.id.textViewMyScore);
-        textViewResultInfo = findViewById(R.id.textViewResultInfo);
         buttonAgain = findViewById(R.id.buttonAgain);
+
 
         score = getIntent().getIntExtra("score",0);
         textViewMyScore.setText("Your score : "+score);
@@ -38,21 +45,24 @@ public class ResultActivity extends AppCompatActivity {
 
         if (score >= 200)
         {
-            textViewResultInfo.setText("You won the Game");
+
             textViewHighestScore.setText("Highest Score : "+score);
             sharedPreferences.edit().putInt("highestScore",score).apply();
         }
         else if (score >= highestScore)
         {
-            textViewResultInfo.setText("Sorry, you lost the game.");
             textViewHighestScore.setText("Highest Score : "+score);
             sharedPreferences.edit().putInt("highestScore",score).apply();
         }
         else
         {
-            textViewResultInfo.setText("Sorry, you lost the game.");
             textViewHighestScore.setText("Highest Score : "+highestScore);
         }
+
+        Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+               .submitScore(getString(R.string.leaderboard_id), score);
+
+
 
         buttonAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +70,14 @@ public class ResultActivity extends AppCompatActivity {
                 Intent intent = new Intent(ResultActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        leader = findViewById(R.id.leaderboard);
+        leader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLeaderboard();
             }
         });
     }
@@ -91,5 +109,17 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         builder.create().show();
+    }
+
+    private void showLeaderboard() {
+
+        Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .getLeaderboardIntent(getString(R.string.leaderboard_id))
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        startActivityForResult(intent, RC_LEADERBOARD_UI);
+                    }
+                });
     }
 }

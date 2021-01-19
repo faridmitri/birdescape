@@ -2,6 +2,7 @@ package com.am.birdescape;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -131,20 +132,54 @@ public class GameActivity extends AppCompatActivity {
         coin1.setVisibility(View.VISIBLE);
         coin2.setVisibility(View.VISIBLE);
 
+  // enemy1
         enemy1X = enemy1X - (screenWidth / 150);
 
         if (score >= 50 && score < 100)
-        {
+        {    constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg1));
+            enemy1X = enemy1X - (screenWidth / 140);
+        }
+        if (score >= 150 && score < 250)
+        {   constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg2));
             enemy1X = enemy1X - (screenWidth / 130);
         }
-        if (score >= 100 && score < 150)
-        {
+        if (score >= 250 && score < 350)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg3));
             enemy1X = enemy1X - (screenWidth / 120);
         }
-        if (score >= 150)
-        {
-            enemy1X = enemy1X - (screenWidth / 100);
+
+        if (score >= 350 && score < 450)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg4));
+            enemy1X = enemy1X - (screenWidth / 110);
         }
+
+        if (score >= 450 && score < 550)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg5));
+            enemy1X = enemy1X - (screenWidth / 90);
+        }
+
+        if (score >= 550 && score < 650)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg6));
+            enemy1X = enemy1X - (screenWidth / 80);
+        }
+
+        if (score >= 650 && score < 750)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg7));
+            enemy1X = enemy1X - (screenWidth / 70);
+        }
+        if (score >= 750 && score < 850)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg8));
+            enemy1X = enemy1X - (screenWidth / 60);
+        }
+        if (score >= 850 && score <= 950)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
+            enemy1X = enemy1X - (screenWidth / 50);
+        }
+        if (score > 950)
+        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
+            enemy1X = enemy1X - (screenWidth / 40);
+        }
+
 
         if (enemy1X < 0)
         {
@@ -164,17 +199,18 @@ public class GameActivity extends AppCompatActivity {
         enemy1.setX(enemy1X);
         enemy1.setY(enemy1Y);
 
+        // enemy2
         enemy2X = enemy2X - (screenWidth / 140);
 
-        if (score >= 50 && score < 100)
+        if (score >= 100 && score < 300)
         {
             enemy2X = enemy2X - (screenWidth / 120);
         }
-        if (score >= 100 && score < 150)
+        if (score >= 300 && score < 1000)
         {
             enemy2X = enemy2X - (screenWidth / 110);
         }
-        if (score >= 150)
+        if (score >= 1000)
         {
             enemy2X = enemy2X - (screenWidth / 90);
         }
@@ -197,17 +233,22 @@ public class GameActivity extends AppCompatActivity {
         enemy2.setX(enemy2X);
         enemy2.setY(enemy2Y);
 
-        enemy3X = enemy3X - (screenWidth / 130);
+        //enemy3
+        enemy3X = enemy3X - (screenWidth / 120);
 
-        if (score >= 50 && score < 100)
+        if (score >= 200 && score < 400)
         {
-            enemy3X = enemy3X - (screenWidth / 120);
+            enemy3X = enemy3X - (screenWidth / 110);
         }
-        if (score >= 100 && score < 150)
+        if (score >= 400 && score < 500)
         {
             enemy3X = enemy3X - (screenWidth / 100);
         }
-        if (score >= 150)
+        if (score >= 500 && score < 1000)
+        {
+            enemy3X = enemy3X - (screenWidth / 90);
+        }
+        if (score >= 1000)
         {
             enemy3X = enemy3X - (screenWidth / 80);
         }
@@ -231,6 +272,7 @@ public class GameActivity extends AppCompatActivity {
         enemy3.setY(enemy3Y);
 
         coin1X = coin1X - (screenWidth / 120);
+
 
         if (coin1X < 0)
         {
@@ -340,7 +382,7 @@ public class GameActivity extends AppCompatActivity {
             textViewScore.setText(""+score);
         }
 
-        if (right > 0 && score < 200)
+        if (right > 0 )
         {
             if (right == 2)
             {
@@ -352,7 +394,7 @@ public class GameActivity extends AppCompatActivity {
             }
             handler.postDelayed(runnable,20);
         }
-        else if (score >= 200)
+     /*   else if (score >= 200)
         {
             handler.removeCallbacks(runnable);
             constraintLayout.setEnabled(false);
@@ -390,7 +432,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
             handler2.post(runnable2);
-        }
+        } */
         else if (right == 0)
         {
             handler.removeCallbacks(runnable);

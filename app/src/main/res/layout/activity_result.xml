@@ -10,12 +10,12 @@
         android:id="@+id/textViewHighestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:layout_marginBottom="41dp"
         android:text="Highest Score : 200"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAgain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMyScore" />
 
@@ -23,41 +23,45 @@
         android:id="@+id/textViewMyScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="26dp"
         android:text="Your Score : 50"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewHighestScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewResultInfo" />
-
-    <TextView
-        android:id="@+id/textViewResultInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Congratulations"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMyScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewHighestScore"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonAgain"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="41dp"
         android:background="@drawable/button_again_backround"
         android:text="Play Again"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHighestScore" />
+
+    <Button
+        android:id="@+id/leaderboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="53dp"
+        android:background="@drawable/button_again_backround"
+        android:text="LeaderBoard"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAgain" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

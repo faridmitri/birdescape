@@ -2,6 +2,7 @@ package com.am.birdescape;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView bird,enemy1,enemy2,enemy3,coin,volume;
-    private Button buttonStart;
+    private Button buttonStart,leader;
     private Animation animation;
     private MediaPlayer mediaPlayer;
     boolean status = false;
+    private static final int RC_LEADERBOARD_UI = 9004;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         coin = findViewById(R.id.coin);
         volume = findViewById(R.id.volume);
         buttonStart = findViewById(R.id.buttonStart);
+        leader = findViewById(R.id.leaderboard);
 
         animation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.scale_animation);
         bird.setAnimation(animation);
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
         mediaPlayer.start();
@@ -82,5 +91,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        leader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+         showLeaderboard();
+                mediaPlayer.stop();
+
+            }
+        });
+}
+
+    private void showLeaderboard() {
+
+        Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .getLeaderboardIntent(getString(R.string.leaderboard_id))
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        startActivityForResult(intent, RC_LEADERBOARD_UI);
+                    }
+                });
     }
 }
