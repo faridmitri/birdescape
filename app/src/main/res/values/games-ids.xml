@@ -7,6 +7,24 @@
   <string name="package_name" translatable="false">com.am.birdescape</string>
   <!--leaderboard Leaderboard-->
   <string name="leaderboard_id" translatable="false">CggIg8L9oFMQAhAB</string>
-  <!--achievement Begener-->
-  <string name="achievement_begener" translatable="false">CggIg8L9oFMQAhAC</string>
+
+
+  <!--achievement Level 1-->
+  <string name="achievement_level_1" translatable="false">CggIg8L9oFMQAhAC</string>
+  <!--achievement Level 2-->
+  <string name="achievement_level_2" translatable="false">CggIg8L9oFMQAhAD</string>
+  <!--achievement level 3-->
+  <string name="achievement_level_3" translatable="false">CggIg8L9oFMQAhAE</string>
+  <!--achievement Level 4-->
+  <string name="achievement_level_4" translatable="false">CggIg8L9oFMQAhAF</string>
+  <!--achievement Level 5-->
+  <string name="achievement_level_5" translatable="false">CggIg8L9oFMQAhAG</string>
+  <!--achievement Level 6-->
+  <string name="achievement_level_6" translatable="false">CggIg8L9oFMQAhAH</string>
+  <!--achievement Level 7-->
+  <string name="achievement_level_7" translatable="false">CggIg8L9oFMQAhAI</string>
+  <!--achievement Level 8-->
+  <string name="achievement_level_8" translatable="false">CggIg8L9oFMQAhAJ</string>
+  <!--achievement Level 9-->
+  <string name="achievement_level_9" translatable="false">CggIg8L9oFMQAhAK</string>
 </resources>

@@ -141,14 +141,17 @@ public class GameActivity extends AppCompatActivity {
         enemy1X = enemy1X - (screenWidth / 150);
         enemy2X = enemy2X - (screenWidth / 140);
         enemy3X = enemy3X - (screenWidth / 120);
+        coin1X = coin1X - (screenWidth / 120);
+        coin2X = coin2X - (screenWidth / 110);
+
 
         if (score >= 50 && score < 100)
         {    constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg1));
             enemy1X = enemy1X - (screenWidth / 140);
             enemy2X = enemy2X - (screenWidth / 140);
             enemy3X = enemy3X - (screenWidth / 120);
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .unlock(getString(R.string.achievement_begener));
+
+
         }
         if (score >= 100 && score < 200)
         {   constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg2));
@@ -156,59 +159,103 @@ public class GameActivity extends AppCompatActivity {
             enemy2X = enemy2X - (screenWidth / 130);
             enemy3X = enemy3X - (screenWidth / 120);
         }
-        if (score >= 200 && score < 350)
+        if (score >= 200 && score < 300)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg3));
             enemy1X = enemy1X - (screenWidth / 120);
             enemy2X = enemy2X - (screenWidth / 120);
             enemy3X = enemy3X - (screenWidth / 120);
+            coin1X = coin1X - (screenWidth / 100);
+            coin2X = coin2X - (screenWidth / 100);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_1));
+
         }
 
-        if (score >= 350 && score < 450)
+        if (score >= 300 && score < 400)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg4));
             enemy1X = enemy1X - (screenWidth / 110);
             enemy2X = enemy2X - (screenWidth / 110);
             enemy3X = enemy3X - (screenWidth / 120);
+            coin1X = coin1X - (screenWidth / 100);
+            coin2X = coin2X - (screenWidth / 100);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_2));
+
         }
 
-        if (score >= 450 && score < 550)
+        if (score >= 400 && score < 500)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg5));
             enemy1X = enemy1X - (screenWidth / 90);
             enemy2X = enemy2X - (screenWidth / 100);
             enemy3X = enemy3X - (screenWidth / 120);
+            coin1X = coin1X - (screenWidth / 90);
+            coin2X = coin2X - (screenWidth / 90);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_3));
         }
 
-        if (score >= 550 && score < 650)
+        if (score >= 500 && score < 600)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg6));
             enemy1X = enemy1X - (screenWidth / 80);
             enemy2X = enemy2X - (screenWidth / 90);
             enemy3X = enemy3X - (screenWidth / 100);
+            coin1X = coin1X - (screenWidth / 90);
+            coin2X = coin2X - (screenWidth / 90);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_4));
         }
 
-        if (score >= 650 && score < 750)
+        if (score >= 600 && score < 700)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg7));
             enemy1X = enemy1X - (screenWidth / 70);
             enemy2X = enemy2X - (screenWidth / 80);
             enemy3X = enemy3X - (screenWidth / 70);
+            coin1X = coin1X - (screenWidth / 90);
+            coin2X = coin2X - (screenWidth / 80);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_5));
         }
-        if (score >= 750 && score < 850)
+        if (score >= 700 && score < 800)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg8));
             enemy1X = enemy1X - (screenWidth / 60);
             enemy2X = enemy2X - (screenWidth / 70);
             enemy3X = enemy3X - (screenWidth / 60);
+            coin1X = coin1X - (screenWidth / 80);
+            coin2X = coin2X - (screenWidth / 80);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_6));
         }
-        if (score >= 850 && score <= 950)
+        if (score >= 800 && score <= 900)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
             enemy1X = enemy1X - (screenWidth / 50);
             enemy2X = enemy2X - (screenWidth / 60);
             enemy3X = enemy3X - (screenWidth / 50);
+            coin1X = coin1X - (screenWidth / 80);
+            coin2X = coin2X - (screenWidth / 80);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_7));
         }
-        if (score > 950)
+        if (score >= 900 && score <= 1000)
         {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
             enemy1X = enemy1X - (screenWidth / 40);
             enemy2X = enemy2X - (screenWidth / 50);
             enemy3X = enemy3X - (screenWidth / 40);
+            coin1X = coin1X - (screenWidth / 80);
+            coin2X = coin2X - (screenWidth / 80);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_8));
         }
 
+        if (score >= 1000 ) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
+            enemy1X = enemy1X - (screenWidth / 40);
+            enemy2X = enemy2X - (screenWidth / 40);
+            enemy3X = enemy3X - (screenWidth / 40);
+            coin1X = coin1X - (screenWidth / 60);
+            coin2X = coin2X - (screenWidth / 60);
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_level_9));
+        }
 
         if (enemy1X < 0)
         {
@@ -270,7 +317,7 @@ public class GameActivity extends AppCompatActivity {
         enemy3.setX(enemy3X);
         enemy3.setY(enemy3Y);
 
-        coin1X = coin1X - (screenWidth / 120);
+
 
 
         if (coin1X < 0)
@@ -291,7 +338,7 @@ public class GameActivity extends AppCompatActivity {
         coin1.setX(coin1X);
         coin1.setY(coin1Y);
 
-        coin2X = coin2X - (screenWidth / 110);
+
 
         if (coin2X < 0)
         {
