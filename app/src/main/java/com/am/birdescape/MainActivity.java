@@ -23,12 +23,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView bird,enemy1,enemy2,enemy3,coin,volume;
-    private Button buttonStart,leader;
+    private ImageView bird,enemy1,enemy2,enemy3,coin,volume,leader,achiv;
+    private Button buttonStart;
     private Animation animation;
     private MediaPlayer mediaPlayer;
     boolean status = false;
     private static final int RC_LEADERBOARD_UI = 9004;
+    private static final int RC_ACHIEVEMENT_UI = 9003;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         coin = findViewById(R.id.coin);
         volume = findViewById(R.id.volume);
         buttonStart = findViewById(R.id.buttonStart);
-        leader = findViewById(R.id.leaderboard);
-
+        leader = findViewById(R.id.leaderboardimg);
+        achiv = findViewById(R.id.achivmentimg);
         animation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.scale_animation);
         bird.setAnimation(animation);
         enemy1.setAnimation(animation);
@@ -56,10 +58,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
-
+        volume.setImageResource(R.drawable.volume_up);
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
         mediaPlayer.start();
+
+
+        if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            mediaPlayer.stop();
+            finish();}
 
         volume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +94,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.reset();
                 volume.setImageResource(R.drawable.volume_up);
-
                 Intent intent = new Intent(MainActivity.this,GameActivity.class);
                 startActivity(intent);
             }
         });
+
         leader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-         showLeaderboard();
+                showLeaderboard();
+                mediaPlayer.stop();
+
+            }
+        });
+
+        achiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showAchievements();
                 mediaPlayer.stop();
 
             }
@@ -110,6 +128,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Intent intent) {
                         startActivityForResult(intent, RC_LEADERBOARD_UI);
+                    }
+                });
+    }
+
+    private void showAchievements() {
+        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .getAchievementsIntent()
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        startActivityForResult(intent, RC_ACHIEVEMENT_UI);
                     }
                 });
     }

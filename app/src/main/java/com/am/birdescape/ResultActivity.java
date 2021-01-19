@@ -142,4 +142,13 @@ public class ResultActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
+            Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();}
+    }
 }
