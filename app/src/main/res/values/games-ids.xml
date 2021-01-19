@@ -7,4 +7,6 @@
   <string name="package_name" translatable="false">com.am.birdescape</string>
   <!--leaderboard Leaderboard-->
   <string name="leaderboard_id" translatable="false">CggIg8L9oFMQAhAB</string>
+  <!--achievement Begener-->
+  <string name="achievement_begener" translatable="false">CggIg8L9oFMQAhAC</string>
 </resources>

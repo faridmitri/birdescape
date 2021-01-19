@@ -20,11 +20,12 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class ResultActivity extends AppCompatActivity {
 
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
-    private Button buttonAgain,leader;
+    private Button buttonAgain,leader,achivments;
     private int score;
 
     private SharedPreferences sharedPreferences;
     private static final int RC_LEADERBOARD_UI = 9004;
+    private static final int RC_ACHIEVEMENT_UI = 9003;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         textViewHighestScore = findViewById(R.id.textViewHighestScore);
         textViewMyScore = findViewById(R.id.textViewMyScore);
         buttonAgain = findViewById(R.id.buttonAgain);
-
+        achivments = findViewById(R.id.achivements);
 
         score = getIntent().getIntExtra("score",0);
         textViewMyScore.setText("Your score : "+score);
@@ -80,6 +81,14 @@ public class ResultActivity extends AppCompatActivity {
                 showLeaderboard();
             }
         });
+
+
+        achivments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAchievements();
+            }
+        });
     }
 
     @Override
@@ -119,6 +128,17 @@ public class ResultActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Intent intent) {
                         startActivityForResult(intent, RC_LEADERBOARD_UI);
+                    }
+                });
+    }
+
+    private void showAchievements() {
+        Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .getAchievementsIntent()
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        startActivityForResult(intent, RC_ACHIEVEMENT_UI);
                     }
                 });
     }
