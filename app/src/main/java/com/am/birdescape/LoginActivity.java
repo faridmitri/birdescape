@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "signInSilently(): failure", task.getException());
                            // onDisconnected();
-                            startSignInIntent();
+                           // startSignInIntent();
                         }
                     }
                 });

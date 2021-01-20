@@ -5,26 +5,36 @@
   <string name="app_id" translatable="false">22349308163</string>
   <!--package_name-->
   <string name="package_name" translatable="false">com.am.birdescape</string>
-  <!--leaderboard Leaderboard-->
-  <string name="leaderboard_id" translatable="false">CggIg8L9oFMQAhAB</string>
-
-
   <!--achievement Level 1-->
   <string name="achievement_level_1" translatable="false">CggIg8L9oFMQAhAC</string>
+  <!--achievement The Starter-->
+  <string name="achievement_the_starter" translatable="false">CggIg8L9oFMQAhAM</string>
   <!--achievement Level 2-->
   <string name="achievement_level_2" translatable="false">CggIg8L9oFMQAhAD</string>
   <!--achievement level 3-->
   <string name="achievement_level_3" translatable="false">CggIg8L9oFMQAhAE</string>
+  <!--achievement The Adventurer-->
+  <string name="achievement_the_adventurer" translatable="false">CggIg8L9oFMQAhAN</string>
   <!--achievement Level 4-->
   <string name="achievement_level_4" translatable="false">CggIg8L9oFMQAhAF</string>
   <!--achievement Level 5-->
   <string name="achievement_level_5" translatable="false">CggIg8L9oFMQAhAG</string>
   <!--achievement Level 6-->
   <string name="achievement_level_6" translatable="false">CggIg8L9oFMQAhAH</string>
+  <!--achievement The Gamer-->
+  <string name="achievement_the_gamer" translatable="false">CggIg8L9oFMQAhAO</string>
   <!--achievement Level 7-->
   <string name="achievement_level_7" translatable="false">CggIg8L9oFMQAhAI</string>
+  <!--achievement The best-->
+  <string name="achievement_the_best" translatable="false">CggIg8L9oFMQAhAP</string>
   <!--achievement Level 8-->
   <string name="achievement_level_8" translatable="false">CggIg8L9oFMQAhAJ</string>
   <!--achievement Level 9-->
   <string name="achievement_level_9" translatable="false">CggIg8L9oFMQAhAK</string>
+  <!--achievement Bird Helper-->
+  <string name="achievement_bird_helper" translatable="false">CggIg8L9oFMQAhAL</string>
+  <!--achievement The King-->
+  <string name="achievement_the_king" translatable="false">CggIg8L9oFMQAhAQ</string>
+  <!--leaderboard Bird Escape LeaderBoard-->
+  <string name="leaderboard_id" translatable="false">CggIg8L9oFMQAhAB</string>
 </resources>
