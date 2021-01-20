@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
 
     private Runnable runnable,runnable2;
     private Handler handler,handler2;
-
+    boolean count = false;
 
 
     //Positions
@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
 
     //points
     int score = 0;
-
+    int i;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,10 @@ public class GameActivity extends AppCompatActivity {
         textViewScore = findViewById(R.id.textViewScore);
         textViewStartInfo = findViewById(R.id.textViewStartInfo);
         constraintLayout = findViewById(R.id.constraintLayout);
+
+        GamesClient gamesClient = Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this));
+        gamesClient.setViewForPopups(findViewById(android.R.id.content));
+        gamesClient.setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 
         constraintLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -131,15 +135,15 @@ public class GameActivity extends AppCompatActivity {
         bird.setY(birdY);
     }
 
-    public void enemyControl()
-    {
+    public void enemyControl() {
         enemy1.setVisibility(View.VISIBLE);
         enemy2.setVisibility(View.VISIBLE);
         enemy3.setVisibility(View.VISIBLE);
         coin1.setVisibility(View.VISIBLE);
         coin2.setVisibility(View.VISIBLE);
 
-  //
+
+        //
         enemy1X = enemy1X - (screenWidth / 150);
         enemy2X = enemy2X - (screenWidth / 140);
         enemy3X = enemy3X - (screenWidth / 120);
@@ -147,22 +151,29 @@ public class GameActivity extends AppCompatActivity {
         coin2X = coin2X - (screenWidth / 110);
 
 
-        if (score >= 50 && score < 100)
-        {    constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg1));
-            enemy1X = enemy1X - (screenWidth / 140);
+        if (score == 50 && right == 3)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_big_heart), 1);
+        }
+
+
+
+        if (score >= 50 && score < 100) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg1));
+            enemy1X = enemy1X - (screenWidth / 145);
             enemy2X = enemy2X - (screenWidth / 140);
             enemy3X = enemy3X - (screenWidth / 120);
 
-
         }
-        if (score >= 100 && score < 200)
-        {   constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg2));
+        if (score >= 100 && score < 200) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg2));
             enemy1X = enemy1X - (screenWidth / 130);
             enemy2X = enemy2X - (screenWidth / 130);
             enemy3X = enemy3X - (screenWidth / 120);
         }
-        if (score >= 200 && score < 300)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg3));
+        if (score >= 200 && score < 300) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg3));
             enemy1X = enemy1X - (screenWidth / 120);
             enemy2X = enemy2X - (screenWidth / 120);
             enemy3X = enemy3X - (screenWidth / 120);
@@ -170,13 +181,13 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 100);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_1));
-         //   Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this)).setViewForPopups(this.findViewById(android.R.id.content));
+       
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_starter), 5);
+                    .increment(getString(R.string.achievement_the_starter), 1);
         }
 
-        if (score >= 300 && score < 400)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg4));
+        if (score >= 300 && score < 400) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg4));
             enemy1X = enemy1X - (screenWidth / 110);
             enemy2X = enemy2X - (screenWidth / 110);
             enemy3X = enemy3X - (screenWidth / 120);
@@ -188,8 +199,8 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
-        if (score >= 400 && score < 500)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg5));
+        if (score >= 400 && score < 500) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg5));
             enemy1X = enemy1X - (screenWidth / 90);
             enemy2X = enemy2X - (screenWidth / 100);
             enemy3X = enemy3X - (screenWidth / 120);
@@ -198,11 +209,11 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_3));
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_adventurer), 5);
+                    .increment(getString(R.string.achievement_the_adventurer), 1);
         }
 
-        if (score >= 500 && score < 600)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg6));
+        if (score >= 500 && score < 600) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg6));
             enemy1X = enemy1X - (screenWidth / 80);
             enemy2X = enemy2X - (screenWidth / 90);
             enemy3X = enemy3X - (screenWidth / 100);
@@ -212,8 +223,8 @@ public class GameActivity extends AppCompatActivity {
                     .unlock(getString(R.string.achievement_level_4));
         }
 
-        if (score >= 600 && score < 700)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg7));
+        if (score >= 600 && score < 700) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg7));
             enemy1X = enemy1X - (screenWidth / 70);
             enemy2X = enemy2X - (screenWidth / 80);
             enemy3X = enemy3X - (screenWidth / 70);
@@ -222,8 +233,8 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_5));
         }
-        if (score >= 700 && score < 800)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg8));
+        if (score >= 700 && score < 800) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg8));
             enemy1X = enemy1X - (screenWidth / 65);
             enemy2X = enemy2X - (screenWidth / 75);
             enemy3X = enemy3X - (screenWidth / 65);
@@ -232,10 +243,10 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_6));
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_gamer), 5);
+                    .increment(getString(R.string.achievement_the_gamer), 1);
         }
-        if (score >= 800 && score < 900)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
+        if (score >= 800 && score < 900) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
             enemy1X = enemy1X - (screenWidth / 60);
             enemy2X = enemy2X - (screenWidth / 70);
             enemy3X = enemy3X - (screenWidth / 60);
@@ -244,8 +255,8 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_7));
         }
-        if (score >= 900 && score < 1000)
-        {constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
+        if (score >= 900 && score < 1000) {
+            constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
             enemy1X = enemy1X - (screenWidth / 50);
             enemy2X = enemy2X - (screenWidth / 60);
             enemy3X = enemy3X - (screenWidth / 50);
@@ -254,7 +265,7 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_8));
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_best), 5);
+                    .increment(getString(R.string.achievement_the_best), 1);
         }
 
         if (score >= 1000 && score < 1100) {
@@ -278,20 +289,17 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_bird_helper));
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_king), 10);
+                    .increment(getString(R.string.achievement_the_king), 1);
         }
 
-        if (enemy1X < 0)
-        {
+        if (enemy1X < 0) {
             enemy1X = screenWidth + 200;
             enemy1Y = (int) Math.floor(Math.random() * screenHeight);
 
-            if (enemy1Y <= 0)
-            {
+            if (enemy1Y <= 0) {
                 enemy1Y = 0;
             }
-            if (enemy1Y >= (screenHeight - enemy1.getHeight()))
-            {
+            if (enemy1Y >= (screenHeight - enemy1.getHeight())) {
                 enemy1Y = (screenHeight - enemy1.getHeight());
             }
         }
@@ -301,17 +309,14 @@ public class GameActivity extends AppCompatActivity {
 
         // enemy2
 
-        if (enemy2X < 0)
-        {
+        if (enemy2X < 0) {
             enemy2X = screenWidth + 200;
             enemy2Y = (int) Math.floor(Math.random() * screenHeight);
 
-            if (enemy2Y <= 0)
-            {
+            if (enemy2Y <= 0) {
                 enemy2Y = 0;
             }
-            if (enemy2Y >= (screenHeight - enemy2.getHeight()))
-            {
+            if (enemy2Y >= (screenHeight - enemy2.getHeight())) {
                 enemy2Y = (screenHeight - enemy2.getHeight());
             }
         }
@@ -322,18 +327,14 @@ public class GameActivity extends AppCompatActivity {
         //enemy3
 
 
-
-        if (enemy3X < 0)
-        {
+        if (enemy3X < 0) {
             enemy3X = screenWidth + 200;
             enemy3Y = (int) Math.floor(Math.random() * screenHeight);
 
-            if (enemy3Y <= 0)
-            {
+            if (enemy3Y <= 0) {
                 enemy3Y = 0;
             }
-            if (enemy3Y >= (screenHeight - enemy3.getHeight()))
-            {
+            if (enemy3Y >= (screenHeight - enemy3.getHeight())) {
                 enemy3Y = (screenHeight - enemy3.getHeight());
             }
         }
@@ -342,19 +343,14 @@ public class GameActivity extends AppCompatActivity {
         enemy3.setY(enemy3Y);
 
 
-
-
-        if (coin1X < 0)
-        {
+        if (coin1X < 0) {
             coin1X = screenWidth + 200;
             coin1Y = (int) Math.floor(Math.random() * screenHeight);
 
-            if (coin1Y <= 0)
-            {
+            if (coin1Y <= 0) {
                 coin1Y = 0;
             }
-            if (coin1Y >= (screenHeight - coin1.getHeight()))
-            {
+            if (coin1Y >= (screenHeight - coin1.getHeight())) {
                 coin1Y = (screenHeight - coin1.getHeight());
             }
         }
@@ -363,24 +359,21 @@ public class GameActivity extends AppCompatActivity {
         coin1.setY(coin1Y);
 
 
-
-        if (coin2X < 0)
-        {
+        if (coin2X < 0) {
             coin2X = screenWidth + 200;
             coin2Y = (int) Math.floor(Math.random() * screenHeight);
 
-            if (coin2Y <= 0)
-            {
+            if (coin2Y <= 0) {
                 coin2Y = 0;
             }
-            if (coin2Y >= (screenHeight - coin2.getHeight()))
-            {
+            if (coin2Y >= (screenHeight - coin2.getHeight())) {
                 coin2Y = (screenHeight - coin2.getHeight());
             }
         }
-
         coin2.setX(coin2X);
         coin2.setY(coin2Y);
+
+
     }
 
     public void collisionControl()
@@ -451,6 +444,8 @@ public class GameActivity extends AppCompatActivity {
             score = score + 10;
             textViewScore.setText(""+score);
         }
+
+
 
         if (right > 0 )
         {

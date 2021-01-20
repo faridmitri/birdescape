@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 .requestServerAuthCode(getString(R.string.default_web_client_id))
                 .build(); */
 
-        signInSilently();
+
 
         login = findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
@@ -88,18 +88,19 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null && GoogleSignIn.getLastSignedInAccount(this) != null) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        } else signInSilently();
 
     }
 

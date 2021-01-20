@@ -31,6 +31,8 @@
   <string name="achievement_level_8" translatable="false">CggIg8L9oFMQAhAJ</string>
   <!--achievement Level 9-->
   <string name="achievement_level_9" translatable="false">CggIg8L9oFMQAhAK</string>
+  <!--achievement Big Heart-->
+  <string name="achievement_big_heart" translatable="false">CggIg8L9oFMQAhAR</string>
   <!--achievement Bird Helper-->
   <string name="achievement_bird_helper" translatable="false">CggIg8L9oFMQAhAL</string>
   <!--achievement The King-->
