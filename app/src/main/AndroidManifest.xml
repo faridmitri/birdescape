@@ -9,21 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirdEscape">
-
-
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/MyTheme.BirdEscape"
+        <activity android:name=".play.Play_results"></activity>
+        <activity
+            android:name=".play.Play_GameActivity"
             android:screenOrientation="landscape"
-            ></activity>
+            android:theme="@style/MyTheme.BirdEscape" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/MyTheme.BirdEscape" />
         <activity
             android:name=".ResultActivity"
-            android:theme="@style/MyTheme.BirdEscape"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MyTheme.BirdEscape" />
         <activity
             android:name=".GameActivity"
-            android:theme="@style/MyTheme.BirdEscape"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/MyTheme.BirdEscape" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="landscape">
@@ -33,11 +35,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.google.android.gms.games.APP_ID"
-            android:value="@string/app_id" />
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
 
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

@@ -8,9 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.am.birdescape.play.Play_GameActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,12 +39,17 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG ="" ;
     Button login,play;
     private FirebaseAuth mAuth;
-
+    private Animation animation;
+    private ImageView bird;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        bird = findViewById(R.id.imageView);
+        animation = AnimationUtils.loadAnimation(LoginActivity.this,R.anim.scale_animation);
+        bird.setAnimation(animation);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -54,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 .requestServerAuthCode(getString(R.string.default_web_client_id))
                 .build(); */
 
-
+        signInSilently();
 
         login = findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
@@ -64,15 +73,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-      /*  play = findViewById(R.id.play);
+        play = findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, Play_GameActivity.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
     }
 
     @Override
@@ -91,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        signInSilently();
+
     }
 
     private void startSignInIntent() {
