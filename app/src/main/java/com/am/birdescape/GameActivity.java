@@ -20,13 +20,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesClient;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements OnUserEarnedRewardListener {
 
     private static final String TAG = "";
     private ImageView bird,enemy1,enemy2,enemy3,coin1,coin2,right1,right2,right3;
@@ -46,8 +57,8 @@ public class GameActivity extends AppCompatActivity {
     boolean eflag = false;
     boolean fflag = false;
 
-    private RewardedAd mRewardedAd;
 
+    RewardedInterstitialAd rewardedInterstitialAd;
     //Positions
     int birdX,enemy1X,enemy2X,enemy3X,coin1X,coin2X;
     int birdY,enemy1Y,enemy2Y,enemy3Y,coin1Y,coin2Y;
@@ -62,15 +73,18 @@ public class GameActivity extends AppCompatActivity {
     //points
     int score = 0;
     int i;
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
-
-
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                loadAd();
+            }
+        });
 
 ///////////////////////////////////////////////////////////////////////////////////
         bird = findViewById(R.id.imageViewBird);
@@ -90,6 +104,10 @@ public class GameActivity extends AppCompatActivity {
         gamesClient.setViewForPopups(findViewById(android.R.id.content));
         gamesClient.setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 
+        start();
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    public void start(){
         constraintLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -517,8 +535,15 @@ public class GameActivity extends AppCompatActivity {
         }
 
         else if (right == 0)
-        {   gameover();
 
+        { if (!adsflag) {
+            gameover();
+        } else {
+            Intent intent = new Intent(GameActivity.this,ResultActivity.class);
+            intent.putExtra("score",score);
+            startActivity(intent);
+            finish();
+        }
         }
     }
 
@@ -530,9 +555,16 @@ public class GameActivity extends AppCompatActivity {
         builder.setNegativeButton("Watch ad", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                right = 1;
-                handler.post(runnable);
+                if (rewardedInterstitialAd != null) {
+                    rewardedInterstitialAd.show(GameActivity.this, GameActivity.this);
 
+                }
+                else {
+                    Intent intent = new Intent(GameActivity.this,ResultActivity.class);
+                    intent.putExtra("score",score);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         builder.setPositiveButton("Game Over", new DialogInterface.OnClickListener() {
@@ -552,7 +584,55 @@ public class GameActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    public void loadAd() {
+        // Use the test ad unit ID to load an ad.
+        RewardedInterstitialAd.load(GameActivity.this, "ca-app-pub-3940256099942544/5354046379",
+                new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(RewardedInterstitialAd ad) {
+                        rewardedInterstitialAd = ad;
+                        Log.e(TAG, "onAdLoaded");
+                        rewardedInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            /** Called when the ad failed to show full screen content. */
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                Log.i(TAG, "onAdFailedToShowFullScreenContent");
+                            }
 
+                            /** Called when ad showed the full screen content. */
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                Log.i(TAG, "onAdShowedFullScreenContent");
+                            }
 
+                            /** Called when full screen content is dismissed. */
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                Log.i(TAG, "onAdDismissedFullScreenContent");
+                            }
+                        });
+                    }
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError loadAdError) {
+                        Log.e(TAG, "onAdFailedToLoad");
+
+                    }
+                });
+    }
+
+    @Override
+    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+        Log.i(TAG, "onUserEarnedReward");
+        // TODO: Reward the user!
+        rewardedInterstitialAd = null;
+        adsflag = true;
+        right = 1;
+        beginControl = false;
+        handler.removeCallbacks(runnable);
+        textViewStartInfo.setVisibility(View.VISIBLE);
+        textViewStartInfo.setText("Click to continue");
+        loadAd();
+        start();
+    }
 
 }
