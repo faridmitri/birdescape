@@ -10,12 +10,10 @@
 
     <ImageView
         android:id="@+id/imageViewBird"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="527dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewEnemy2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bird" />
@@ -40,63 +38,48 @@
 
     <ImageView
         android:id="@+id/imageViewCoin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="33dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewCoin2"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewCoin2"
-        app:layout_constraintStart_toStartOf="@+id/imageViewCoin2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/coin"
+        tools:layout_editor_absoluteX="627dp"
+        tools:layout_editor_absoluteY="33dp" />
 
     <ImageView
         android:id="@+id/imageViewCoin2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewEnemy1"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewEnemy1"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEnemy1"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCoin"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/coin"
+        tools:layout_editor_absoluteX="627dp"
+        tools:layout_editor_absoluteY="73dp" />
 
     <ImageView
         android:id="@+id/imageViewEnemy1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewEnemy3"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewEnemy3"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEnemy3"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCoin2"
-        app:srcCompat="@drawable/red_bee" />
+        app:srcCompat="@drawable/red_bee"
+        tools:layout_editor_absoluteX="627dp"
+        tools:layout_editor_absoluteY="118dp" />
 
     <ImageView
         android:id="@+id/imageViewEnemy2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="19dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewHeart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewBird"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEnemy3"
-        app:srcCompat="@drawable/green_bee" />
+        app:srcCompat="@drawable/green_bee"
+        tools:layout_editor_absoluteX="627dp"
+        tools:layout_editor_absoluteY="227dp" />
 
     <ImageView
         android:id="@+id/imageViewEnemy3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="9dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewEnemy2"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewEnemy2"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEnemy2"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEnemy1"
-        app:srcCompat="@drawable/grey_bee" />
+        app:srcCompat="@drawable/grey_bee"
+        tools:layout_editor_absoluteX="627dp"
+        tools:layout_editor_absoluteY="168dp" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -157,16 +140,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/favorite_red"
         tools:ignore="VectorDrawableCompat" />
-
-    <ImageView
-        android:id="@+id/imageViewHeart"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="65dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEnemy2"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEnemy2"
-        app:srcCompat="@drawable/favorite_red" />
 </androidx.constraintlayout.widget.ConstraintLayout>

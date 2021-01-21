@@ -9,15 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirdEscape">
+
         <activity android:name=".play.Play_results"></activity>
         <activity
             android:name=".play.Play_GameActivity"
             android:screenOrientation="landscape"
             android:theme="@style/MyTheme.BirdEscape" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/MyTheme.BirdEscape" />
+
         <activity
             android:name=".ResultActivity"
             android:screenOrientation="portrait"
@@ -27,8 +25,13 @@
             android:screenOrientation="landscape"
             android:theme="@style/MyTheme.BirdEscape" />
         <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/MyTheme.BirdEscape" />
+        <activity
             android:name=".LoginActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/MyTheme.BirdEscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

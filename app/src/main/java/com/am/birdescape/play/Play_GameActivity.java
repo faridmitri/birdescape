@@ -14,9 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.am.birdescape.R;
-import com.am.birdescape.ResultActivity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.games.Games;
+
 
 public class Play_GameActivity extends AppCompatActivity {
 
@@ -139,7 +137,7 @@ public class Play_GameActivity extends AppCompatActivity {
         coin1.setVisibility(View.VISIBLE);
         coin2.setVisibility(View.VISIBLE);
 
-  //
+        //
         enemy1X = enemy1X - (screenWidth / 150);
         enemy2X = enemy2X - (screenWidth / 140);
         enemy3X = enemy3X - (screenWidth / 120);

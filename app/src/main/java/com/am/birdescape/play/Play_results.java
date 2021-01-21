@@ -34,7 +34,7 @@ public class Play_results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_results);
 
-constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout = findViewById(R.id.constraintLayout);
         textViewHighestScore = findViewById(R.id.textViewHighestScore);
         textViewMyScore = findViewById(R.id.textViewMyScore);
         buttonAgain = findViewById(R.id.buttonAgain);

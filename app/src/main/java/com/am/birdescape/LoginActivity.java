@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-              //  onConnected(account);
+                //  onConnected(account);
                 firebaseAuthWithPlayGames(account);
             } catch (ApiException apiException) {
                 String message = apiException.getMessage();
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                     message = getString(R.string.signin_other_error);
                 }
 
-               // onDisconnected();
+                // onDisconnected();
 
                 new AlertDialog.Builder(this)
                         .setMessage(message)
@@ -168,12 +168,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInSilently(): success");
-                          //  onConnected(task.getResult());
+                            //  onConnected(task.getResult());
                             firebaseAuthWithPlayGames(task.getResult());
                         } else {
                             Log.d(TAG, "signInSilently(): failure", task.getException());
-                           // onDisconnected();
-                           // startSignInIntent();
+                            // onDisconnected();
+                            // startSignInIntent();
                         }
                     }
                 });
@@ -195,13 +195,13 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();
-                          //  updateUI(user);
+                            //  updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
+                            // updateUI(null);
                         }
 
                         // ...

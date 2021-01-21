@@ -18,19 +18,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.OnUserEarnedRewardListener;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.rewarded.RewardItem;
+
 import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesClient;
@@ -77,28 +68,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        AdRequest adRequest = new AdRequest.Builder().build();
 
-        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
-                adRequest, new RewardedAdLoadCallback(){
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error.
-                        Log.d(TAG, loadAdError.getMessage());
-                        mRewardedAd = null;
-                    }
-
-                    @Override
-                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                        mRewardedAd = rewardedAd;
-                        Log.d(TAG, "onAdFailedToLoad");
-                    }
-                });
 
 
 
@@ -272,7 +242,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 100);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_1));
-       
+
 
         }
 
@@ -545,45 +515,7 @@ public class GameActivity extends AppCompatActivity {
             }
             handler.postDelayed(runnable,20);
         }
-     /*   else if (score >= 200)
-        {
-            handler.removeCallbacks(runnable);
-            constraintLayout.setEnabled(false);
-            textViewStartInfo.setVisibility(View.VISIBLE);
-            textViewStartInfo.setText("Congratulations. You won the game.");
-            enemy1.setVisibility(View.INVISIBLE);
-            enemy2.setVisibility(View.INVISIBLE);
-            enemy3.setVisibility(View.INVISIBLE);
-            coin1.setVisibility(View.INVISIBLE);
-            coin2.setVisibility(View.INVISIBLE);
 
-            handler2 = new Handler();
-            runnable2 = new Runnable() {
-                @Override
-                public void run() {
-
-                    birdX = birdX + (screenWidth / 300);
-                    bird.setX(birdX);
-                    bird.setY(screenHeight / 2f);
-                    if (birdX <= screenWidth)
-                    {
-                        handler2.postDelayed(runnable2,20);
-                    }
-                    else
-                    {
-                        handler2.removeCallbacks(runnable2);
-
-                        Intent intent = new Intent(GameActivity.this,ResultActivity.class);
-                        intent.putExtra("score",score);
-                        startActivity(intent);
-                        finish();
-                    }
-
-
-                }
-            };
-            handler2.post(runnable2);
-        } */
         else if (right == 0)
         {   gameover();
 
@@ -598,16 +530,8 @@ public class GameActivity extends AppCompatActivity {
         builder.setNegativeButton("Watch ad", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (mRewardedAd != null)
-                { fullscreeen();
-                    showad();} else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ad not loaded yet",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-
-                }
+                right = 1;
+                handler.post(runnable);
 
             }
         });
@@ -628,46 +552,7 @@ public class GameActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public void showad(){
-        if (mRewardedAd != null) {
-            Activity activityContext = GameActivity.this;
-            mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
-                @Override
-                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                    // Handle the reward.
-                    Log.d("TAG", "The user earned the reward.");
-                    right = 1;
-                    handler.post(runnable);
-                }
-            });
-        } else {
-            Log.d("TAG", "The rewarded ad wasn't ready yet.");
-            gameover();
-        }
-    }
 
-    public void fullscreeen(){
-        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-            @Override
-            public void onAdShowedFullScreenContent() {
-                // Called when ad is shown.
-                Log.d(TAG, "Ad was shown.");
-                mRewardedAd = null;
-            }
 
-            @Override
-            public void onAdFailedToShowFullScreenContent(AdError adError) {
-                // Called when ad fails to show.
-                Log.d(TAG, "Ad failed to show.");
-            }
 
-            @Override
-            public void onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-                // Don't forget to set the ad reference to null so you
-                // don't show the ad a second time.
-                Log.d(TAG, "Ad was dismissed.");
-            }
-        });
-    }
 }
