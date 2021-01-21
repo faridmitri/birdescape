@@ -1,25 +1,43 @@
 package com.am.birdescape;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesClient;
 
 public class GameActivity extends AppCompatActivity {
 
+    private static final String TAG = "";
     private ImageView bird,enemy1,enemy2,enemy3,coin1,coin2,right1,right2,right3;
     private TextView textViewScore,textViewStartInfo;
     private ConstraintLayout constraintLayout;
@@ -29,8 +47,15 @@ public class GameActivity extends AppCompatActivity {
 
     private Runnable runnable,runnable2;
     private Handler handler,handler2;
-    boolean count = false;
+    boolean adsflag = false;
+    boolean aflag = false;
+    boolean bflag = false;
+    boolean cflag = false;
+    boolean dflag = false;
+    boolean eflag = false;
+    boolean fflag = false;
 
+    private RewardedAd mRewardedAd;
 
     //Positions
     int birdX,enemy1X,enemy2X,enemy3X,coin1X,coin2X;
@@ -51,7 +76,33 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+///////////////////////////////////////////////////////reward ads////////////////////////////////////
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
 
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
+                adRequest, new RewardedAdLoadCallback(){
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d(TAG, loadAdError.getMessage());
+                        mRewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        Log.d(TAG, "onAdFailedToLoad");
+                    }
+                });
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
         bird = findViewById(R.id.imageViewBird);
         enemy1 = findViewById(R.id.imageViewEnemy1);
         enemy2 = findViewById(R.id.imageViewEnemy2);
@@ -92,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
                             moveToBird();
                             enemyControl();
                             collisionControl();
+                            achivmentsControl();
                         }
                     };
                     handler.post(runnable);
@@ -135,6 +187,53 @@ public class GameActivity extends AppCompatActivity {
         bird.setY(birdY);
     }
 
+
+    public void achivmentsControl() {
+        /////////////////achivments increments/////////////////////////////////////////
+        if (score == 200 &&  aflag ==false)
+        {
+
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_the_starter), 1);
+            aflag = true;
+        }
+        if (score == 400 &&  bflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_the_adventurer), 1);
+            bflag = true;
+        }
+        if (score == 700 &&  cflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_the_gamer), 1);
+            cflag = true;
+        }
+        if (score == 900 &&  dflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_the_best), 1);
+            dflag = true;
+        }
+
+        if (score == 1100 &&  eflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_the_king), 1);
+            eflag = true;
+        }
+
+        if (score == 50 &&  fflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_big_heart), 1);
+            fflag = true;
+        }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+
     public void enemyControl() {
         enemy1.setVisibility(View.VISIBLE);
         enemy2.setVisibility(View.VISIBLE);
@@ -149,14 +248,6 @@ public class GameActivity extends AppCompatActivity {
         enemy3X = enemy3X - (screenWidth / 120);
         coin1X = coin1X - (screenWidth / 120);
         coin2X = coin2X - (screenWidth / 110);
-
-
-        if (score == 50 && right == 3)
-        {
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_big_heart), 1);
-        }
-
 
 
         if (score >= 50 && score < 100) {
@@ -182,8 +273,7 @@ public class GameActivity extends AppCompatActivity {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_1));
        
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_starter), 1);
+
         }
 
         if (score >= 300 && score < 400) {
@@ -208,8 +298,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 90);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_3));
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_adventurer), 1);
+
         }
 
         if (score >= 500 && score < 600) {
@@ -242,8 +331,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 90);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_6));
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_gamer), 1);
+
         }
         if (score >= 800 && score < 900) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
@@ -264,8 +352,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 75);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_8));
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_best), 1);
+
         }
 
         if (score >= 1000 && score < 1100) {
@@ -288,8 +375,7 @@ public class GameActivity extends AppCompatActivity {
             coin2X = coin2X - (screenWidth / 65);
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_bird_helper));
-            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                    .increment(getString(R.string.achievement_the_king), 1);
+
         }
 
         if (enemy1X < 0) {
@@ -499,13 +585,89 @@ public class GameActivity extends AppCompatActivity {
             handler2.post(runnable2);
         } */
         else if (right == 0)
-        {
-            handler.removeCallbacks(runnable);
-            right3.setImageResource(R.drawable.favorite_grey);
-            Intent intent = new Intent(GameActivity.this,ResultActivity.class);
-            intent.putExtra("score",score);
-            startActivity(intent);
-            finish();
+        {   gameover();
+
         }
+    }
+
+    public void gameover(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setTitle("Help The Innocent Bird");
+        builder.setMessage("Watch ad to get one more life");
+        builder.setCancelable(false);
+        builder.setNegativeButton("Watch ad", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (mRewardedAd != null)
+                { fullscreeen();
+                    showad();} else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ad not loaded yet",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+
+            }
+        });
+        builder.setPositiveButton("Game Over", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                handler.removeCallbacks(runnable);
+                right3.setImageResource(R.drawable.favorite_grey);
+                Intent intent = new Intent(GameActivity.this,ResultActivity.class);
+                intent.putExtra("score",score);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        builder.create().show();
+    }
+
+    public void showad(){
+        if (mRewardedAd != null) {
+            Activity activityContext = GameActivity.this;
+            mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                    // Handle the reward.
+                    Log.d("TAG", "The user earned the reward.");
+                    right = 1;
+                    handler.post(runnable);
+                }
+            });
+        } else {
+            Log.d("TAG", "The rewarded ad wasn't ready yet.");
+            gameover();
+        }
+    }
+
+    public void fullscreeen(){
+        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+            @Override
+            public void onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d(TAG, "Ad was shown.");
+                mRewardedAd = null;
+            }
+
+            @Override
+            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                // Called when ad fails to show.
+                Log.d(TAG, "Ad failed to show.");
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                // Don't forget to set the ad reference to null so you
+                // don't show the ad a second time.
+                Log.d(TAG, "Ad was dismissed.");
+            }
+        });
     }
 }
