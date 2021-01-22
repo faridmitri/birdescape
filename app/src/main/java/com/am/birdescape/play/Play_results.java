@@ -17,6 +17,11 @@ import android.widget.TextView;
 import com.am.birdescape.LoginActivity;
 import com.am.birdescape.R;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -25,6 +30,7 @@ public class Play_results extends AppCompatActivity {
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
     private Button buttonAgain,leader,achivments;
     private int score;
+    private AdView mAdView;
 
     private SharedPreferences sharedPreferences;
     ConstraintLayout constraintLayout;
@@ -33,6 +39,13 @@ public class Play_results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_results);
+
+
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         constraintLayout = findViewById(R.id.constraintLayout);
         textViewHighestScore = findViewById(R.id.textViewHighestScore);

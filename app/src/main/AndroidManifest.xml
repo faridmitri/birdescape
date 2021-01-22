@@ -9,13 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirdEscape">
-
-        <activity android:name=".play.Play_results"></activity>
+        <activity android:name=".AndroApp"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".play.Play_results"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".play.Play_GameActivity"
             android:screenOrientation="landscape"
             android:theme="@style/MyTheme.BirdEscape" />
-
         <activity
             android:name=".ResultActivity"
             android:screenOrientation="portrait"
@@ -44,13 +47,10 @@
             android:value="@string/app_id" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-                <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
-                <meta-data
-                    android:name="com.google.android.gms.ads.APPLICATION_ID"
-                    android:value="ca-app-pub-8469263715026322~7419616401"/>
-
+            android:value="@integer/google_play_services_version" /> <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8469263715026322~7419616401" />
     </application>
 
 </manifest>

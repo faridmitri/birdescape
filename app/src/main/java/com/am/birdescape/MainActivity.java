@@ -23,7 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView bird,enemy1,enemy2,enemy3,coin,volume,leader,achiv;
+    private ImageView bird,enemy1,enemy2,enemy3,coin,volume,leader,achiv,androapp;
     private Button buttonStart;
     private Animation animation;
     private MediaPlayer mediaPlayer;
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this)).setViewForPopups(this.findViewById(android.R.id.content));
 
+
+androapp = findViewById(R.id.androapp);
         bird = findViewById(R.id.bird);
         enemy1 = findViewById(R.id.enemy1);
         enemy2 = findViewById(R.id.enemy2);
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         enemy2.setAnimation(animation);
         enemy3.setAnimation(animation);
         coin.setAnimation(animation);
+
+        mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
+        volume.setImageResource(R.drawable.volume_up);
+        mediaPlayer.start();
     }
 
 
@@ -61,9 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
-        volume.setImageResource(R.drawable.volume_up);
-        mediaPlayer.start();
+
 
 
         if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 mediaPlayer.reset();
                 volume.setImageResource(R.drawable.volume_up);
                 Intent intent = new Intent(MainActivity.this,GameActivity.class);
+                intent.putExtra("status",status);
                 startActivity(intent);
                 finish();
             }
@@ -108,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 showLeaderboard();
-                mediaPlayer.stop();
+              //  mediaPlayer.reset();
 
             }
         });
@@ -118,7 +123,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 showAchievements();
-                mediaPlayer.stop();
+               // mediaPlayer.reset();
+
+            }
+        });
+
+        androapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.reset();
+                volume.setImageResource(R.drawable.volume_up);
+                Intent intent = new Intent(MainActivity.this,AndroApp.class);
+                startActivity(intent);
 
             }
         });

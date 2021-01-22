@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -73,6 +74,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     //points
     int score = 0;
     int i;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,11 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         textViewScore = findViewById(R.id.textViewScore);
         textViewStartInfo = findViewById(R.id.textViewStartInfo);
         constraintLayout = findViewById(R.id.constraintLayout);
-
+      Boolean  status = getIntent().getBooleanExtra("status",false);
+        mediaPlayer = MediaPlayer.create(GameActivity.this,R.raw.audio_for_game);
+      if (!status){ mediaPlayer.start();}
+      
+      
         GamesClient gamesClient = Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this));
         gamesClient.setViewForPopups(findViewById(android.R.id.content));
         gamesClient.setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -539,6 +545,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         { if (!adsflag) {
             gameover();
         } else {
+            mediaPlayer.reset();
             Intent intent = new Intent(GameActivity.this,ResultActivity.class);
             intent.putExtra("score",score);
             startActivity(intent);
@@ -560,6 +567,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
                 }
                 else {
+                    mediaPlayer.reset();
                     Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                     intent.putExtra("score",score);
                     startActivity(intent);
@@ -573,6 +581,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
                 handler.removeCallbacks(runnable);
                 right3.setImageResource(R.drawable.favorite_grey);
+                mediaPlayer.reset();
                 Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                 intent.putExtra("score",score);
                 startActivity(intent);
@@ -586,7 +595,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
     public void loadAd() {
         // Use the test ad unit ID to load an ad.
-        RewardedInterstitialAd.load(GameActivity.this, "ca-app-pub-3940256099942544/5354046379",
+        RewardedInterstitialAd.load(GameActivity.this, "ca-app-pub-8469263715026322/5707396714",
                 new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(RewardedInterstitialAd ad) {
@@ -597,6 +606,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                             @Override
                             public void onAdFailedToShowFullScreenContent(AdError adError) {
                                 Log.i(TAG, "onAdFailedToShowFullScreenContent");
+                                Intent intent = new Intent(GameActivity.this,ResultActivity.class);
+                                intent.putExtra("score",score);
+                                startActivity(intent);
+                                finish();
                             }
 
                             /** Called when ad showed the full screen content. */
@@ -609,6 +622,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                             @Override
                             public void onAdDismissedFullScreenContent() {
                                 Log.i(TAG, "onAdDismissedFullScreenContent");
+                                Intent intent = new Intent(GameActivity.this,ResultActivity.class);
+                                intent.putExtra("score",score);
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }

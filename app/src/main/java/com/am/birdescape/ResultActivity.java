@@ -39,61 +39,17 @@ public class ResultActivity extends AppCompatActivity {
     private static final int RC_ACHIEVEMENT_UI = 9003;
     private InterstitialAd mInterstitialAd;
     private String TAG ="";
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 /////////////////////////////////////////////////////////////////////////////////
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
-        });
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                // The mInterstitialAd reference will be null until
-                // an ad is loaded.
-                mInterstitialAd = interstitialAd;
-                Log.i(TAG, "onAdLoaded");
-            }
 
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                // Handle the error
-                Log.i(TAG, loadAdError.getMessage());
-                mInterstitialAd = null;
-                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        // Called when fullscreen content is dismissed.
-                        Log.d("TAG", "The ad was dismissed.");
-                    }
+      loadad();
 
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        // Called when fullscreen content failed to show.
-                        Log.d("TAG", "The ad failed to show.");
-                    }
 
-                    @Override
-                    public void onAdShowedFullScreenContent() {
-                        // Called when fullscreen content is shown.
-                        // Make sure to set your reference to null so you don't
-                        // show it a second time.
-                        mInterstitialAd = null;
-                        Log.d("TAG", "The ad was shown.");
-                    }
-                });
-            }
-        });
-
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(ResultActivity.this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 ///////////////////////////////////////////////////////////////////////////////
         textViewHighestScore = findViewById(R.id.textViewHighestScore);
         textViewMyScore = findViewById(R.id.textViewMyScore);
@@ -130,9 +86,16 @@ public class ResultActivity extends AppCompatActivity {
         buttonAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(ResultActivity.this);
+                   flag = true;
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    Intent intent = new Intent(ResultActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
 
@@ -140,7 +103,15 @@ public class ResultActivity extends AppCompatActivity {
         leader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLeaderboard();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(ResultActivity.this);
+                    showLeaderboard();
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    showLeaderboard();
+                }
+
+                loadad();
             }
         });
 
@@ -148,8 +119,17 @@ public class ResultActivity extends AppCompatActivity {
         achivments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAchievements();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(ResultActivity.this);
+                    showAchievements();
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    showAchievements();
+                }
+
+                loadad();
             }
+
         });
     }
 
@@ -208,9 +188,58 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    /*    if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
+             if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
             Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();}*/
+            finish();}
+
+        if (flag) {
+            Intent intent = new Intent(ResultActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+    public void loadad() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,"ca-app-pub-8469263715026322/7540364897", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialAd = null;
+                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        // Called when fullscreen content is dismissed.
+                        Log.d("TAG", "The ad was dismissed.");
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        // Called when fullscreen content failed to show.
+                        Log.d("TAG", "The ad failed to show.");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        // Called when fullscreen content is shown.
+                        // Make sure to set your reference to null so you don't
+                        // show it a second time.
+                        mInterstitialAd = null;
+                        Log.d("TAG", "The ad was shown.");
+                    }
+                });
+            }
+        });
     }
 }

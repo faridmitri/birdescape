@@ -140,4 +140,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/favorite_red"
         tools:ignore="VectorDrawableCompat" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

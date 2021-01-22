@@ -15,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.am.birdescape.play.Play_GameActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,11 +48,41 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Animation animation;
     private ImageView bird;
-
+    private InterstitialAd mInterstitialAd;
+Boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+///////////////////////////////////////////////////////////////////////////////////////
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+
+        InterstitialAd.load(this,"ca-app-pub-8469263715026322/2652437089", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////
 
         bird = findViewById(R.id.imageView);
         animation = AnimationUtils.loadAnimation(LoginActivity.this,R.anim.scale_animation);
@@ -77,9 +114,16 @@ public class LoginActivity extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Play_GameActivity.class);
-                startActivity(intent);
-                finish();
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(LoginActivity.this);
+                    flag = true;
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    Intent intent = new Intent(LoginActivity.this, Play_GameActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
     }
@@ -100,7 +144,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        } else signInSilently();
+        } else {signInSilently();}
+
+        if (flag) {
+            Intent intent = new Intent(LoginActivity.this, Play_GameActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 
