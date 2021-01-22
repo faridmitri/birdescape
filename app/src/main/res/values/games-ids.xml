@@ -37,6 +37,8 @@
   <string name="achievement_bird_helper" translatable="false">CggIg8L9oFMQAhAL</string>
   <!--achievement The King-->
   <string name="achievement_the_king" translatable="false">CggIg8L9oFMQAhAQ</string>
+  <!--achievement Bird Heart-->
+  <string name="achievement_bird_heart" translatable="false">CggIg8L9oFMQAhAS</string>
   <!--leaderboard Bird Escape LeaderBoard-->
   <string name="leaderboard_id" translatable="false">CggIg8L9oFMQAhAB</string>
 </resources>

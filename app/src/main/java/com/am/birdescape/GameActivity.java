@@ -57,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     boolean dflag = false;
     boolean eflag = false;
     boolean fflag = false;
+    boolean gflag = false;
 
 
     RewardedInterstitialAd rewardedInterstitialAd;
@@ -197,6 +198,12 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                     .increment(getString(R.string.achievement_the_adventurer), 1);
             bflag = true;
         }
+        if (score == 600 &&  gflag ==false)
+        {
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .increment(getString(R.string.achievement_bird_heart), 1);
+            gflag = true;
+        }
         if (score == 700 &&  cflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
@@ -217,7 +224,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
             eflag = true;
         }
 
-        if (score == 50 &&  fflag ==false)
+        if (score == 1200 &&  fflag ==false && right ==3)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_big_heart), 1);
