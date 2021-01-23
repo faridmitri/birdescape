@@ -55,4 +55,10 @@ dependencies {
 //admob
     implementation 'com.google.android.gms:play-services-ads:19.7.0'
 
+    implementation 'com.google.android.play:core:1.8.0'
+
+    implementation 'com.android.billingclient:billing:3.0.2'
+
+
+
 }

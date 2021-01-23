@@ -3,6 +3,8 @@ package com.am.birdescape;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,14 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
+
+import java.util.Date;
+
+import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     boolean status = false;
     private static final int RC_LEADERBOARD_UI = 9004;
     private static final int RC_ACHIEVEMENT_UI = 9003;
+    long installTimeInMilliseconds; // install time is conveniently provided in milliseconds
+    private ReviewManager reviewManager;
+    private ReviewInfo reviewInfo;
 
 
     @Override
@@ -37,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this)).setViewForPopups(this.findViewById(android.R.id.content));
+
+        reviewManager = ReviewManagerFactory.create(this);
+        getInstallDate();
+
+        long l =currentTimeMillis();
+        if (  installTimeInMilliseconds + (86400000 * 3) < l)
+        {
+            Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+            request.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    reviewInfo = task.getResult();
+                    Task<Void> flow = reviewManager.launchReviewFlow(MainActivity.this, reviewInfo);
+                    flow.addOnCompleteListener(taskdone -> {
+                        // This is the next follow of your app
+                    });
+                }
+            });
+        }
+
+
 
 
 androapp = findViewById(R.id.androapp);
@@ -161,6 +194,26 @@ androapp = findViewById(R.id.androapp);
                         startActivityForResult(intent, RC_ACHIEVEMENT_UI);
                     }
                 });
+    }
+
+    private String getInstallDate() {
+        // get app installation date
+        PackageManager packageManager =  this.getPackageManager();
+
+        Date installDate = null;
+        String installDateString = null;
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);
+            installTimeInMilliseconds = packageInfo.firstInstallTime;
+
+
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            // an error occurred, so display the Unix epoch
+            installDate = new Date(0);
+            installDateString = installDate.toString();
+        }
+        return installDateString;
     }
 }
 
