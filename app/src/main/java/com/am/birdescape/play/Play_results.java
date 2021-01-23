@@ -60,13 +60,8 @@ public class Play_results extends AppCompatActivity {
         int highestScore = sharedPreferences.getInt("highestScore",0);
 
 
-        if (score >= 200)
-        {
 
-            textViewHighestScore.setText("Highest Score : "+score);
-            sharedPreferences.edit().putInt("highestScore",score).apply();
-        }
-        else if (score >= highestScore)
+         if (score >= highestScore)
         {
             textViewHighestScore.setText("Highest Score : "+score);
             sharedPreferences.edit().putInt("highestScore",score).apply();

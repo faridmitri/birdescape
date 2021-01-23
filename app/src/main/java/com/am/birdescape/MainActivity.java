@@ -2,6 +2,7 @@ package com.am.birdescape;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -33,7 +35,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView bird,enemy1,enemy2,enemy3,coin,volume,leader,achiv,androapp;
+    private ImageView bird,enemy1,enemy2,enemy3,coin,volume,leader,achiv,androapp,store;
     private Button buttonStart;
     private Animation animation;
     private MediaPlayer mediaPlayer;
@@ -43,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
     long installTimeInMilliseconds; // install time is conveniently provided in milliseconds
     private ReviewManager reviewManager;
     private ReviewInfo reviewInfo;
-
+    int birdimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this)).setViewForPopups(this.findViewById(android.R.id.content));
+        final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        birdimg =(mSharedPreference.getInt("bird", R.drawable.bird0));
 
         reviewManager = ReviewManagerFactory.create(this);
         getInstallDate();
@@ -72,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-androapp = findViewById(R.id.androapp);
+       androapp = findViewById(R.id.androapp);
+        store = findViewById(R.id.store);
         bird = findViewById(R.id.bird);
         enemy1 = findViewById(R.id.enemy1);
         enemy2 = findViewById(R.id.enemy2);
@@ -83,6 +88,7 @@ androapp = findViewById(R.id.androapp);
         leader = findViewById(R.id.leaderboardimg);
         achiv = findViewById(R.id.achivmentimg);
         animation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.scale_animation);
+        bird.setImageResource(birdimg);
         bird.setAnimation(animation);
         enemy1.setAnimation(animation);
         enemy2.setAnimation(animation);
@@ -167,6 +173,17 @@ androapp = findViewById(R.id.androapp);
                 mediaPlayer.reset();
                 volume.setImageResource(R.drawable.volume_up);
                 Intent intent = new Intent(MainActivity.this,AndroApp.class);
+                startActivity(intent);
+
+            }
+        });
+
+        store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.reset();
+                volume.setImageResource(R.drawable.volume_up);
+                Intent intent = new Intent(MainActivity.this,Store.class);
                 startActivity(intent);
 
             }

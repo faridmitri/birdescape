@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.am.birdescape">
+
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirdEscape">
-        <activity android:name=".AndroApp"
-            android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".Store"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".AndroApp"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".play.Play_results"
             android:screenOrientation="portrait" />

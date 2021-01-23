@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
     private Button buttonAgain,leader,achivments;
-    private int score;
+    private int score,storecoins ;
 
     private SharedPreferences sharedPreferences;
     private static final int RC_LEADERBOARD_UI = 9004;
@@ -62,13 +63,16 @@ public class ResultActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("Score", Context.MODE_PRIVATE);
         int highestScore = sharedPreferences.getInt("highestScore",0);
 
-        if (score >= 200)
+
+   /*     if (score >= 200)
         {
 
             textViewHighestScore.setText("Highest Score : "+score);
             sharedPreferences.edit().putInt("highestScore",score).apply();
         }
-        else if (score >= highestScore)
+        else */
+        if (score >= highestScore)
+
         {
             textViewHighestScore.setText("Highest Score : "+score);
             sharedPreferences.edit().putInt("highestScore",score).apply();
@@ -77,6 +81,15 @@ public class ResultActivity extends AppCompatActivity {
         {
             textViewHighestScore.setText("Highest Score : "+highestScore);
         }
+
+        final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        storecoins=(mSharedPreference.getInt("coinstore", 0));
+        storecoins += score;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ResultActivity.this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("coinstore", storecoins);
+        editor.commit();
+
 
         Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                .submitScore(getString(R.string.leaderboard_id), score);
@@ -161,6 +174,8 @@ public class ResultActivity extends AppCompatActivity {
 
         builder.create().show();
     }
+
+
 
     private void showLeaderboard() {
 

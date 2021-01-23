@@ -42,7 +42,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:padding="10dp"
-                app:srcCompat="@drawable/bird"
+                app:srcCompat="@drawable/bird0"
                 tools:ignore="VectorDrawableCompat" />
 
             <TextView
@@ -196,6 +196,14 @@
             android:layout_marginRight="200dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/leaderboard" />
+
+        <ImageView
+            android:id="@+id/store"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/shop" />
 
         <ImageView
             android:id="@+id/androapp"

@@ -10,9 +10,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -44,6 +46,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     private ImageView bird,enemy1,enemy2,enemy3,coin1,coin2,right1,right2,right3;
     private TextView textViewScore,textViewStartInfo;
     private ConstraintLayout constraintLayout;
+    int birdimg;
 
     private boolean touchControl = false;
     private boolean beginControl = false;
@@ -81,6 +84,9 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        birdimg =(mSharedPreference.getInt("bird", R.drawable.bird0));
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -91,6 +97,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
 ///////////////////////////////////////////////////////////////////////////////////
         bird = findViewById(R.id.imageViewBird);
+        bird.setImageResource(birdimg);
         enemy1 = findViewById(R.id.imageViewEnemy1);
         enemy2 = findViewById(R.id.imageViewEnemy2);
         enemy3 = findViewById(R.id.imageViewEnemy3);
