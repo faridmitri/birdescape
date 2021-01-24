@@ -40,23 +40,34 @@
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="63dp"
-        android:text="Just play without google play services benifits"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="89dp"
+        android:text="Just play without above written benifits"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="9dp"
         app:layout_constraintEnd_toStartOf="@+id/play"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:srcCompat="@drawable/playjust" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LeaderBoard, Achievements,Store,Music"
+        android:textColor="#F44336"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

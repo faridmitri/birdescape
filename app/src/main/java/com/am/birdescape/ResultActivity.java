@@ -84,7 +84,7 @@ public class ResultActivity extends AppCompatActivity {
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         storecoins=(mSharedPreference.getInt("coinstore", 0));
-        storecoins += score;
+        storecoins += (score/10);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ResultActivity.this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("coinstore", storecoins);

@@ -44,13 +44,14 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
     private static final String TAG = "";
     private ImageView bird,enemy1,enemy2,enemy3,coin1,coin2,right1,right2,right3;
-    private TextView textViewScore,textViewStartInfo;
+    private TextView textViewScore,textViewStartInfo,right4;
     private ConstraintLayout constraintLayout;
-    int birdimg;
+    int birdimg,hearts = 0;
 
     private boolean touchControl = false;
     private boolean beginControl = false;
 
+    private SharedPreferences sharedPreferences;
     private Runnable runnable,runnable2;
     private Handler handler,handler2;
     boolean adsflag = false;
@@ -87,6 +88,8 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         birdimg =(mSharedPreference.getInt("bird", R.drawable.bird0));
+        hearts=(mSharedPreference.getInt("heart", 0));
+        right = right + hearts;
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -106,6 +109,8 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         right1 = findViewById(R.id.right1);
         right2 = findViewById(R.id.right2);
         right3 = findViewById(R.id.right3);
+       right4 = findViewById(R.id.right4);
+       right4.setText("+ " +hearts);
         textViewScore = findViewById(R.id.textViewScore);
         textViewStartInfo = findViewById(R.id.textViewStartInfo);
         constraintLayout = findViewById(R.id.constraintLayout);
@@ -542,7 +547,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
 
         if (right > 0 )
+        {   if (right >3)
         {
+            right4.setVisibility(View.VISIBLE);
+        }
             if (right == 2)
             {
                 right1.setImageResource(R.drawable.favorite_grey);
@@ -554,9 +562,13 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
             handler.postDelayed(runnable,20);
         }
 
-        else if (right == 0)
+        else if (right == 0) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("heart",0);
+        editor.commit();
 
-        { if (!adsflag) {
+         if (!adsflag) {
             gameover();
         } else {
             mediaPlayer.reset();

@@ -4,5 +4,6 @@
         Can you help the bird in this challenging task?</string>
 
     <string name="signin_other_error">Error, check your internet connection, or try later</string>
+    <string name="coinsinfo">Purshasing coins are earned by playing the game, incrementation of your score/10 </string>
 
 </resources>
