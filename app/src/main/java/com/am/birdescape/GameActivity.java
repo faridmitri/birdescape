@@ -62,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     boolean eflag = false;
     boolean fflag = false;
     boolean gflag = false;
+    boolean dscore = false;
 
 
     RewardedInterstitialAd rewardedInterstitialAd;
@@ -89,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         birdimg =(mSharedPreference.getInt("bird", R.drawable.bird0));
         hearts=(mSharedPreference.getInt("heart", 0));
+        dscore=(mSharedPreference.getBoolean("dscore",false));
         right = right + hearts;
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -571,6 +573,11 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
          if (!adsflag) {
             gameover();
         } else {
+             if (dscore = true){
+                 score = score * 2;
+                 editor.putBoolean("dscore",false);
+                 editor.commit();
+             }
             mediaPlayer.reset();
             Intent intent = new Intent(GameActivity.this,ResultActivity.class);
             intent.putExtra("score",score);
@@ -593,6 +600,12 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
                 }
                 else {
+                    if (dscore = true){
+                    score = score * 2;
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("dscore",false);
+                    editor.commit();}
                     mediaPlayer.reset();
                     Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                     intent.putExtra("score",score);
@@ -604,7 +617,12 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         builder.setPositiveButton("Game Over", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                if (dscore = true){
+                    score = score * 2;
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("dscore",false);
+                    editor.commit();}
                 handler.removeCallbacks(runnable);
                 right3.setImageResource(R.drawable.favorite_grey);
                 mediaPlayer.reset();
@@ -647,11 +665,12 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                             /** Called when full screen content is dismissed. */
                             @Override
                             public void onAdDismissedFullScreenContent() {
+                                if (right == 0) {
                                 Log.i(TAG, "onAdDismissedFullScreenContent");
                                 Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                                 intent.putExtra("score",score);
                                 startActivity(intent);
-                                finish();
+                                finish(); }
                             }
                         });
                     }
