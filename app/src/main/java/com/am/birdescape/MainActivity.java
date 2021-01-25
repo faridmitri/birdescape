@@ -98,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
         volume.setImageResource(R.drawable.volume_up);
         mediaPlayer.start();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("bird",birdimg);
+        editor.commit();
     }
 
 

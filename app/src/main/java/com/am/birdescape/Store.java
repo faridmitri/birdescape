@@ -60,6 +60,7 @@ public class Store extends AppCompatActivity  {
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         bird=(mSharedPreference.getInt("bird",R.id.rb0));
+
         id=(mSharedPreference.getInt("id",R.id.rb0));
         storecoins=(mSharedPreference.getInt("coinstore", 0));
         hearts=(mSharedPreference.getInt("heart", 0));
@@ -159,14 +160,14 @@ public class Store extends AppCompatActivity  {
         });
 
         doublecoins = findViewById(R.id.doublecoins);
-        if (storecoins < 10 || dcoins == true){doublecoins.setEnabled(false);}
+        if (storecoins < 300000 || dcoins == true){doublecoins.setEnabled(false);}
         doublecoins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storecoins = storecoins - 10;
+                storecoins = storecoins - 300000;
                 coins.setText(""+storecoins);
                 dcoins = true;
-                if (storecoins < 10 || dcoins == true){doublecoins.setEnabled(false);}
+                if (storecoins < 300000 || dcoins == true){doublecoins.setEnabled(false);}
                 save();
             }
         });
