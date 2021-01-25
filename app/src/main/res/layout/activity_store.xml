@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
 
             <Button
                 android:id="@+id/extraheart"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Purshase with 100 000 coins" />
@@ -212,7 +212,7 @@
 
             <Button
                 android:id="@+id/doublescore"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Purshase with 200 000 coins" />
@@ -239,9 +239,9 @@
 
             <Button
                 android:id="@+id/doublecoins"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="Purshase with 300 000 Coins" />
 
             <TextView

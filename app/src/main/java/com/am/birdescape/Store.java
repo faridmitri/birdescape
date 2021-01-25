@@ -60,12 +60,11 @@ public class Store extends AppCompatActivity  {
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         bird=(mSharedPreference.getInt("bird",R.id.rb0));
-
         id=(mSharedPreference.getInt("id",R.id.rb0));
         storecoins=(mSharedPreference.getInt("coinstore", 0));
         hearts=(mSharedPreference.getInt("heart", 0));
         dscore=(mSharedPreference.getBoolean("dscore", false));
-        dscore=(mSharedPreference.getBoolean("dcoins", false));
+        dcoins=(mSharedPreference.getBoolean("dcoins", false));
 
 
         coins = findViewById(R.id.coins);
@@ -171,7 +170,8 @@ public class Store extends AppCompatActivity  {
                 save();
             }
         });
-
+        if (dcoins == true){doublecoins.setText("You didn't use purshased item yet");}
+        if (dscore == true){doublecoins.setText("You didn't use purshased item yet");}
     }
 
     @Override

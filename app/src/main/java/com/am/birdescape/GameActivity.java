@@ -572,19 +572,14 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         }
 
         else if (right == 0) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("heart",0);
-        editor.putBoolean("dcoins",false);
-        editor.commit();
+        save();
 
          if (!adsflag) {
             gameover();
         } else {
-             if (dscore = true){
+             if (dscore == true){
                  score = score * 2;
-                 editor.putBoolean("dscore",false);
-                 editor.commit();
+                 save();
              }
             mediaPlayer.reset();
             Intent intent = new Intent(GameActivity.this,ResultActivity.class);
@@ -608,12 +603,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
                 }
                 else {
-                    if (dscore = true){
+                    if (dscore == true){
                     score = score * 2;
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("dscore",false);
-                    editor.commit();}
+                    save();
+                   }
                     mediaPlayer.reset();
                     Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                     intent.putExtra("score",score);
@@ -625,12 +618,9 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         builder.setPositiveButton("Game Over", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (dscore = true){
+                if (dscore == true){
                     score = score * 2;
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("dscore",false);
-                    editor.commit();}
+                    save();}
                 handler.removeCallbacks(runnable);
                 right3.setImageResource(R.drawable.favorite_grey);
                 mediaPlayer.reset();
@@ -703,6 +693,16 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         textViewStartInfo.setText("Click to continue");
         loadAd();
         start();
+    }
+
+    public void save() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("dscore",false);
+        editor.putInt("heart",0);
+        editor.putBoolean("dcoins",false);
+        editor.commit();
+
     }
 
 }
