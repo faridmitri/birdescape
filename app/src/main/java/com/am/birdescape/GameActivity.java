@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     boolean eflag = false;
     boolean fflag = false;
     boolean gflag = false;
-    boolean dscore = false;
+    boolean dscore = false,dcoins = false;
 
 
     RewardedInterstitialAd rewardedInterstitialAd;
@@ -91,6 +91,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         birdimg =(mSharedPreference.getInt("bird", R.drawable.bird0));
         hearts=(mSharedPreference.getInt("heart", 0));
         dscore=(mSharedPreference.getBoolean("dscore",false));
+        dcoins=(mSharedPreference.getBoolean("dcoins",false));
         right = right + hearts;
 ///////////////////////////////////////////////////////reward ads////////////////////////////////////
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -528,7 +529,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         )
         {
             coin1X = screenWidth + 200;
-            score = score + 10;
+            if (dcoins == true) {
+                score = score +20;
+            } else {
+            score = score + 10;}
             textViewScore.setText(""+score);
         }
 
@@ -542,7 +546,10 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         )
         {
             coin2X = screenWidth + 200;
-            score = score + 10;
+            if (dcoins == true) {
+                score = score +20;
+            } else {
+                score = score + 10;}
             textViewScore.setText(""+score);
         }
 
@@ -568,6 +575,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameActivity.this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("heart",0);
+        editor.putBoolean("dcoins",false);
         editor.commit();
 
          if (!adsflag) {

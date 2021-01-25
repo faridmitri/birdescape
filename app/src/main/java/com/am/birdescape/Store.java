@@ -11,12 +11,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
@@ -36,13 +38,13 @@ public class Store extends AppCompatActivity  {
     private SharedPreferences sharedPreferences;
     TextView coins,numheart;
     RadioGroup rg;
-    int bird = R.drawable.bird0,storecoins,hearts=0;
-    Button select,extraheart,ads,doublescore;
+    int bird = R.drawable.bird0,storecoins,hearts=0,id;
+    Button extraheart,ads,doublescore,doublecoins;
     AdRequest adRequest;
-   // RadioButton rb0,rb1,rb2,rb3;
+    RadioButton rb0,rb1,rb2,rb3,rb4;
    private RewardedAd mRewardedAd;
     private String TAG = "MainActivity";
-    Boolean dscore = false;
+    Boolean dscore = false,dcoins = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,41 +59,49 @@ public class Store extends AppCompatActivity  {
 ////////////////////////////////////////////////////////////////////////////////
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        bird=(mSharedPreference.getInt("bird",R.id.rb0));
+        id=(mSharedPreference.getInt("id",R.id.rb0));
         storecoins=(mSharedPreference.getInt("coinstore", 0));
         hearts=(mSharedPreference.getInt("heart", 0));
         dscore=(mSharedPreference.getBoolean("dscore", false));
+        dscore=(mSharedPreference.getBoolean("dcoins", false));
 
 
         coins = findViewById(R.id.coins);
         coins.setText(""+storecoins);
-        select = findViewById(R.id.select);
         rg = findViewById(R.id.rg);
 
 
-      /* rb0 = findViewById(R.id.rb0);
+        rb0 = findViewById(R.id.rb0);
         rb1 = findViewById(R.id.rb1);
         rb2 = findViewById(R.id.rb2);
-        rb3 = findViewById(R.id.rb3);*/
-
+        rb3 = findViewById(R.id.rb3);
+        rb4 = findViewById(R.id.rb3);
+        rg.check(id);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int id = rg.getCheckedRadioButtonId();
+                 id = rg.getCheckedRadioButtonId();
                 switch (id) {
                     case R.id.rb0:
                          bird= R.drawable.bird0;
+
                         break;
                     case R.id.rb1:
                          bird= R.drawable.bird1;
+
                         break;
                     case R.id.rb2:
                          bird= R.drawable.bird2;
+                        rb2.setChecked(true);
                         break;
                     case R.id.rb3:
                          bird= R.drawable.bird3;
+
                         break;
                     case R.id.rb4:
                         bird= R.drawable.bird4;
+
                         break;
                     default:
                         bird= R.drawable.bird0;
@@ -102,7 +112,7 @@ public class Store extends AppCompatActivity  {
 
         extraheart = findViewById(R.id.extraheart);
         numheart = findViewById(R.id.numheart);
-        if (storecoins < 10){extraheart.setEnabled(false);}
+        if (storecoins < 100000){extraheart.setEnabled(false);}
         if (hearts >0)
        {
             numheart.setVisibility(View.VISIBLE);
@@ -111,7 +121,7 @@ public class Store extends AppCompatActivity  {
         extraheart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storecoins = storecoins - 10;
+                storecoins = storecoins - 100000;
                 coins.setText(""+storecoins);
                 hearts = hearts +1;
                 numheart.setText(""+hearts);
@@ -134,29 +144,47 @@ public class Store extends AppCompatActivity  {
             }
         });
 
-        select.setOnClickListener(new View.OnClickListener() {
+
+        doublescore = findViewById(R.id.doublescore);
+        if (storecoins < 200000 || dscore == true){doublescore.setEnabled(false);}
+        doublescore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                storecoins = storecoins - 200000;
+                coins.setText(""+storecoins);
+                dscore = true;
+                if (storecoins < 200000 || dscore == true){doublescore.setEnabled(false);}
+                save();
+            }
+        });
+
+        doublecoins = findViewById(R.id.doublecoins);
+        if (storecoins < 10 || dcoins == true){doublecoins.setEnabled(false);}
+        doublecoins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storecoins = storecoins - 10;
+                coins.setText(""+storecoins);
+                dcoins = true;
+                if (storecoins < 10 || dcoins == true){doublecoins.setEnabled(false);}
+                save();
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 save();
                 Intent intent = new Intent(Store.this,MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
-
-        doublescore = findViewById(R.id.doublescore);
-        if (storecoins < 20 || dscore == true){doublescore.setEnabled(false);}
-        doublescore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                storecoins = storecoins - 20;
-                coins.setText(""+storecoins);
-                dscore = true;
-                if (storecoins < 20 || dscore == true){doublescore.setEnabled(false);}
-                save();
-            }
-        });
-
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -165,8 +193,10 @@ public class Store extends AppCompatActivity  {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("coinstore", storecoins);
         editor.putInt("bird",bird);
+        editor.putInt("id",id);
         editor.putInt("heart",hearts);
         editor.putBoolean("dscore",dscore);
+        editor.putBoolean("dcoins",dcoins);
         editor.commit();
 
     }
@@ -225,8 +255,9 @@ public void show(){
                 coins.setText(""+storecoins);
                 save();
                 loadad();
-                if (storecoins < 10){extraheart.setEnabled(false);} else{extraheart.setEnabled(true);}
-                if (storecoins < 20 || dscore == true){doublescore.setEnabled(false);}else {doublescore.setEnabled(true);}
+                if (storecoins < 100000){extraheart.setEnabled(false);} else{extraheart.setEnabled(true);}
+                if (storecoins < 200000 || dscore == true){doublescore.setEnabled(false);}else {doublescore.setEnabled(true);}
+                if (storecoins < 300000){doublecoins.setEnabled(false);} else{doublecoins.setEnabled(true);}
             }
         });
     } else {
@@ -235,5 +266,13 @@ public void show(){
     }
 }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        save();
+        Intent intent = new Intent(Store.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }
