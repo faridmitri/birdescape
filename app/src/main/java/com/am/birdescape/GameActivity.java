@@ -63,6 +63,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     boolean fflag = false;
     boolean gflag = false;
     boolean dscore = false,dcoins = false;
+    Boolean  status;
 
 
     RewardedInterstitialAd rewardedInterstitialAd;
@@ -117,7 +118,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         textViewScore = findViewById(R.id.textViewScore);
         textViewStartInfo = findViewById(R.id.textViewStartInfo);
         constraintLayout = findViewById(R.id.constraintLayout);
-      Boolean  status = getIntent().getBooleanExtra("status",false);
+       status = getIntent().getBooleanExtra("status",false);
         mediaPlayer = MediaPlayer.create(GameActivity.this,R.raw.audio_for_game);
       if (!status){ mediaPlayer.start();}
       
@@ -658,6 +659,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                             @Override
                             public void onAdShowedFullScreenContent() {
                                 Log.i(TAG, "onAdShowedFullScreenContent");
+                                mediaPlayer.pause();
                             }
 
                             /** Called when full screen content is dismissed. */
@@ -668,7 +670,9 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                                 Intent intent = new Intent(GameActivity.this,ResultActivity.class);
                                 intent.putExtra("score",score);
                                 startActivity(intent);
-                                finish(); }
+                                finish(); } else {
+                                    if (!status){ mediaPlayer.start();}
+                                }
                             }
                         });
                     }

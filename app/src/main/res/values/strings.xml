@@ -6,4 +6,7 @@
     <string name="signin_other_error">Error, check your internet connection, or try later</string>
     <string name="coinsinfo">Purshasing coins are earned by playing the game, incrementation of your score/10 </string>
 
+    <string name="facebook_app_id">196113205582391</string>
+    <string name="fb_login_protocol_scheme">fb196113205582391</string>
+
 </resources>

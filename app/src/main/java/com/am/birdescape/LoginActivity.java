@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.am.birdescape.play.Play_GameActivity;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private Animation animation;
     private ImageView bird;
     private InterstitialAd mInterstitialAd;
+    ProgressBar progressBar;
 Boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ Boolean flag = false;
 
 
  /////////////////////////////////////////////////////////////////////////////////////////
-
+ progressBar = findViewById(R.id.progressBar);
         bird = findViewById(R.id.imageView);
         animation = AnimationUtils.loadAnimation(LoginActivity.this,R.anim.scale_animation);
         bird.setAnimation(animation);
@@ -144,7 +146,8 @@ Boolean flag = false;
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        } else {signInSilently();}
+        } else {
+            signInSilently();}
 
         if (flag) {
             Intent intent = new Intent(LoginActivity.this, Play_GameActivity.class);
@@ -155,32 +158,11 @@ Boolean flag = false;
     }
 
     private void startSignInIntent() {
-   /*     GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
-                signInOptions);
-        Intent intent = signInClient.getSignInIntent();
-        startActivityForResult(intent, RC_SIGN_IN); */
+
         startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
     }
 
-  /*  @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // The signed in account is stored in the result.
-                GoogleSignInAccount signedInAccount = result.getSignInAccount();
-                firebaseAuthWithPlayGames(signedInAccount);
-            } else {
-                String message = result.getStatus().getStatusMessage();
-                if (message == null || message.isEmpty()) {
-                    message = getString(R.string.signin_other_error);
-                }
-                new AlertDialog.Builder(this).setMessage(message)
-                        .setNeutralButton(android.R.string.ok, null).show();
-            }
-        }
-    } */
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -211,6 +193,10 @@ Boolean flag = false;
 
     private void signInSilently() {
         Log.d(TAG, "signInSilently()");
+        login.setEnabled(false);
+        play.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+
 
         mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
                 new OnCompleteListener<GoogleSignInAccount>() {
@@ -220,10 +206,17 @@ Boolean flag = false;
                             Log.d(TAG, "signInSilently(): success");
                             //  onConnected(task.getResult());
                             firebaseAuthWithPlayGames(task.getResult());
+                            login.setEnabled(true);
+                            play.setEnabled(true);
+                            progressBar.setVisibility(View.INVISIBLE);
                         } else {
                             Log.d(TAG, "signInSilently(): failure", task.getException());
                             // onDisconnected();
                             // startSignInIntent();
+                            login.setEnabled(true);
+                            play.setEnabled(true);
+                            progressBar.setVisibility(View.INVISIBLE);
+
                         }
                     }
                 });

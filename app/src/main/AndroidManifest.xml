@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.am.birdescape">
 
-    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -18,7 +17,8 @@
         <activity
             android:name=".AndroApp"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+          />
         <activity
             android:name=".play.Play_results"
             android:screenOrientation="portrait" />
@@ -58,6 +58,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8469263715026322~7419616401" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>
