@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class Play_results extends AppCompatActivity {
 
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
-    private Button buttonAgain,leader,achivments;
+    private Button buttonAgain,leader,achivments,store;
     private int score;
     private AdView mAdView;
 
@@ -106,6 +106,26 @@ public class Play_results extends AppCompatActivity {
 
 
         achivments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Snackbar snackbar = Snackbar.make(constraintLayout,"You must sign in to open all game benifits",Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Close", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Play_results.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        ;
+                snackbar.show();
+
+            }
+        });
+
+        store = findViewById(R.id.shop1);
+        store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

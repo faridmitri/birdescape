@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
@@ -32,15 +33,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class ResultActivity extends AppCompatActivity {
 
     private TextView textViewResultInfo,textViewMyScore,textViewHighestScore;
-    private Button buttonAgain,leader,achivments;
+    private Button buttonAgain,leader,achivments,store;
     private int score,storecoins ;
 
     private SharedPreferences sharedPreferences;
     private static final int RC_LEADERBOARD_UI = 9004;
     private static final int RC_ACHIEVEMENT_UI = 9003;
     private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
     private String TAG ="";
-    Boolean flag = false;
+    Boolean flag = false,flag1=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,9 @@ public class ResultActivity extends AppCompatActivity {
 /////////////////////////////////////////////////////////////////////////////////
 
       loadad();
-
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 ///////////////////////////////////////////////////////////////////////////////
         textViewHighestScore = findViewById(R.id.textViewHighestScore);
@@ -144,6 +148,23 @@ public class ResultActivity extends AppCompatActivity {
             }
 
         });
+
+        store = findViewById(R.id.shop1);
+        store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(ResultActivity.this);
+                    flag1 = true;
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    Intent intent = new Intent(ResultActivity.this,Store.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -210,6 +231,12 @@ public class ResultActivity extends AppCompatActivity {
 
         if (flag) {
             Intent intent = new Intent(ResultActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if (flag1) {
+            Intent intent = new Intent(ResultActivity.this,Store.class);
             startActivity(intent);
             finish();
         }

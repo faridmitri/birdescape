@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".play.Play_results">
+    android:layout_height="wrap_content"
+    tools:context=".ResultActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -24,95 +23,146 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="5dp"
             android:text="Your Score : 50"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textViewHighestScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="5dp"
             android:text="Highest Score : 200"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/playjust" />
-
-        <Button
-            android:id="@+id/buttonAgain"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/button_again_backround"
-            android:text="Play Again"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/leaderboard" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                app:srcCompat="@drawable/playjust" />
 
-        <Button
-            android:id="@+id/leaderboard"
+            <Button
+                android:id="@+id/buttonAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/button_again_backround"
+                android:text="Play Again"
+                android:textAllCaps="false"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/button_again_backround"
-            android:text="LeaderBoard"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/achivments" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                app:srcCompat="@drawable/leaderboard" />
 
-        <Button
-            android:id="@+id/achivements"
+            <Button
+                android:id="@+id/leaderboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/button_again_backround"
+                android:text="LeaderBoard"
+                android:textAllCaps="false"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/button_again_backround"
-            android:text="achivments"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                app:srcCompat="@drawable/achivments" />
+
+            <Button
+                android:id="@+id/achivements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/button_again_backround"
+                android:text="achievements"
+                android:textAllCaps="false"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                app:srcCompat="@drawable/shop" />
+
+            <Button
+                android:id="@+id/shop1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/button_again_backround"
+                android:text="Shop"
+                android:textAllCaps="false"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30sp" />
+        </LinearLayout>
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-8469263715026322/4798242361"></com.google.android.gms.ads.AdView>
 
