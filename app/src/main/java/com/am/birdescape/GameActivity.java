@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +31,6 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
-import com.google.android.gms.ads.rewarded.RewardedAd;
 
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
@@ -81,7 +79,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
     //points
     int score = 0;
     int i;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer,mediaPlayer1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +117,14 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         textViewStartInfo = findViewById(R.id.textViewStartInfo);
         constraintLayout = findViewById(R.id.constraintLayout);
        status = getIntent().getBooleanExtra("status",false);
+        mediaPlayer1 = MediaPlayer.create(GameActivity.this,R.raw.lose);
         mediaPlayer = MediaPlayer.create(GameActivity.this,R.raw.audio_for_game);
-      if (!status){ mediaPlayer.start();}
-      
-      
+
+        constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg0));
+
+ //     if (!status){ mediaPlayer.start();}
+
+
         GamesClient gamesClient = Games.getGamesClient(this, GoogleSignIn.getLastSignedInAccount(this));
         gamesClient.setViewForPopups(findViewById(android.R.id.content));
         gamesClient.setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -201,39 +203,39 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
     public void achivmentsControl() {
         /////////////////achivments increments/////////////////////////////////////////
-        if (score == 200 &&  aflag ==false)
+        if (score == 350 &&  aflag ==false)
         {
 
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_the_starter), 1);
             aflag = true;
         }
-        if (score == 400 &&  bflag ==false)
+        if (score == 700 &&  bflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_the_adventurer), 1);
             bflag = true;
         }
-        if (score == 600 &&  gflag ==false)
+        if (score == 900 &&  gflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_bird_heart), 1);
             gflag = true;
         }
-        if (score == 700 &&  cflag ==false)
+        if (score == 1000 &&  cflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_the_gamer), 1);
             cflag = true;
         }
-        if (score == 900 &&  dflag ==false)
+        if (score == 1100 &&  dflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_the_best), 1);
             dflag = true;
         }
 
-        if (score == 1100 &&  eflag ==false)
+        if (score == 1400 &&  eflag ==false)
         {
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .increment(getString(R.string.achievement_the_king), 1);
@@ -267,20 +269,20 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         coin2X = coin2X - (screenWidth / 110);
 
 
-        if (score >= 50 && score < 100) {
+        if (score >= 50 && score < 150) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg1));
             enemy1X = enemy1X - (screenWidth / 145);
             enemy2X = enemy2X - (screenWidth / 140);
             enemy3X = enemy3X - (screenWidth / 120);
 
         }
-        if (score >= 100 && score < 200) {
+        if (score >= 150 && score < 350) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg2));
             enemy1X = enemy1X - (screenWidth / 130);
             enemy2X = enemy2X - (screenWidth / 130);
             enemy3X = enemy3X - (screenWidth / 120);
         }
-        if (score >= 200 && score < 300) {
+        if (score >= 350 && score < 550) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg3));
             enemy1X = enemy1X - (screenWidth / 120);
             enemy2X = enemy2X - (screenWidth / 120);
@@ -293,7 +295,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
         }
 
-        if (score >= 300 && score < 400) {
+        if (score >= 550 && score < 700) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg4));
             enemy1X = enemy1X - (screenWidth / 110);
             enemy2X = enemy2X - (screenWidth / 110);
@@ -306,7 +308,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
         }
 
-        if (score >= 400 && score < 500) {
+        if (score >= 700 && score < 800) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg5));
             enemy1X = enemy1X - (screenWidth / 90);
             enemy2X = enemy2X - (screenWidth / 100);
@@ -318,7 +320,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
         }
 
-        if (score >= 500 && score < 600) {
+        if (score >= 800 && score < 900) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg6));
             enemy1X = enemy1X - (screenWidth / 80);
             enemy2X = enemy2X - (screenWidth / 90);
@@ -329,7 +331,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                     .unlock(getString(R.string.achievement_level_4));
         }
 
-        if (score >= 600 && score < 700) {
+        if (score >= 900 && score < 1000) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg7));
             enemy1X = enemy1X - (screenWidth / 70);
             enemy2X = enemy2X - (screenWidth / 80);
@@ -339,7 +341,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_5));
         }
-        if (score >= 700 && score < 800) {
+        if (score >= 1000 && score < 1100) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg8));
             enemy1X = enemy1X - (screenWidth / 65);
             enemy2X = enemy2X - (screenWidth / 75);
@@ -350,7 +352,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                     .unlock(getString(R.string.achievement_level_6));
 
         }
-        if (score >= 800 && score < 900) {
+        if (score >= 1100 && score < 1200) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg9));
             enemy1X = enemy1X - (screenWidth / 60);
             enemy2X = enemy2X - (screenWidth / 70);
@@ -360,7 +362,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_level_7));
         }
-        if (score >= 900 && score < 1000) {
+        if (score >= 1200 && score < 1300) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
             enemy1X = enemy1X - (screenWidth / 50);
             enemy2X = enemy2X - (screenWidth / 60);
@@ -372,7 +374,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
 
         }
 
-        if (score >= 1000 && score < 1100) {
+        if (score >= 1300 && score < 1400) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10));
             enemy1X = enemy1X - (screenWidth / 45);
             enemy2X = enemy2X - (screenWidth / 55);
@@ -383,7 +385,7 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                     .unlock(getString(R.string.achievement_level_9));
         }
 
-        if (score >= 1100) {
+        if (score >= 1400) {
             constraintLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg10s));
             enemy1X = enemy1X - (screenWidth / 40);
             enemy2X = enemy2X - (screenWidth / 40);
@@ -489,8 +491,12 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                 && centerEnemy1Y >= birdY
                 && centerEnemy1Y <= (birdY + bird.getHeight())
         )
-        {
-            enemy1X = screenWidth + 200;
+        {   enemy1X = screenWidth + 200;
+            enemy2X = screenWidth + 200;
+            enemy3X = screenWidth + 200;
+            mediaPlayer.pause();
+            mediaPlayer1.start();
+            mediaPlayer.start();
             right--;
         }
 
@@ -503,7 +509,14 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                 && centerEnemy2Y <= (birdY + bird.getHeight())
         )
         {
+
+            enemy1X = screenWidth + 200;
             enemy2X = screenWidth + 200;
+            enemy3X = screenWidth + 200;
+            mediaPlayer.pause();
+            mediaPlayer1.start();
+            mediaPlayer.start();
+
             right--;
         }
 
@@ -514,9 +527,17 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
                 && centerEnemy3X <= (birdX + bird.getWidth())
                 && centerEnemy3Y >= birdY
                 && centerEnemy3Y <= (birdY + bird.getHeight())
+
         )
         {
+
+            enemy1X = screenWidth + 200;
+            enemy2X = screenWidth + 200;
             enemy3X = screenWidth + 200;
+            mediaPlayer.pause();
+            mediaPlayer1.start();
+          mediaPlayer.start();
+
             right--;
         }
 
@@ -707,6 +728,55 @@ public class GameActivity extends AppCompatActivity implements OnUserEarnedRewar
         editor.putBoolean("dcoins",false);
         editor.commit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setTitle("Help The Innocent Bird");
+        builder.setMessage("Are you sure you want to quit game?");
+        builder.setCancelable(false);
+        builder.setNegativeButton("Quit game", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+
+            }
+        });
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.cancel();
+
+            }
+        });
+
+        builder.create().show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mediaPlayer.pause();
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mediaPlayer.isPlaying()) {
+            //show the pause button
+        } else {
+            if (!status) {
+                mediaPlayer.start();
+            }
+        }
     }
 
 }

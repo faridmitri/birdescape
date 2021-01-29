@@ -176,7 +176,7 @@ Boolean flag = false;
                 //  onConnected(account);
                 firebaseAuthWithPlayGames(account);
             } catch (ApiException apiException) {
-                String message = apiException.getMessage();
+                String message = apiException.getMessage() + " make sure you have the latest version of Google Play Games";
                 if (message == null || message.isEmpty()) {
                     message = getString(R.string.signin_other_error);
                 }

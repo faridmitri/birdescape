@@ -3,23 +3,21 @@ package com.am.birdescape;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.games.Games;
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ReviewManager reviewManager;
     private ReviewInfo reviewInfo;
     int birdimg;
+    LinearLayout linearlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
        androapp = findViewById(R.id.androapp);
         store = findViewById(R.id.store);
         bird = findViewById(R.id.bird);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.audio_for_game);
         volume.setImageResource(R.drawable.volume_up);
-        mediaPlayer.start();
+  //      mediaPlayer.start();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         SharedPreferences.Editor editor = prefs.edit();
@@ -111,7 +111,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
+        if(mediaPlayer.isPlaying()){
+            //show the pause button
+        }
+        else{
+           mediaPlayer.start();
+        }
 
 
         if ( GoogleSignIn.getLastSignedInAccount(this) == null) {
@@ -236,6 +241,14 @@ public class MainActivity extends AppCompatActivity {
             installDateString = installDate.toString();
         }
         return installDateString;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+            mediaPlayer.pause();
+
     }
 }
 

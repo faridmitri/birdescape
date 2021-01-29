@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearlayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg0"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -42,6 +43,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:padding="10dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/bird0"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -65,6 +67,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:padding="10dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/green_bee"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -88,6 +91,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:padding="10dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/red_bee"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -111,6 +115,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:padding="10dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/grey_bee"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -134,6 +139,7 @@
                 android:id="@+id/coin"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/coin"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -186,6 +192,7 @@
             android:layout_marginLeft="200dp"
             android:layout_marginRight="200dp"
             android:layout_weight="1"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/achivments" />
 
         <ImageView
@@ -195,6 +202,7 @@
             android:layout_margin="10dp"
             android:layout_marginRight="200dp"
             android:layout_weight="1"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/leaderboard" />
 
         <ImageView
@@ -203,6 +211,7 @@
             android:layout_height="70dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/shop" />
 
         <ImageView
@@ -211,6 +220,7 @@
             android:layout_height="70dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/androapp" />
     </LinearLayout>
 
